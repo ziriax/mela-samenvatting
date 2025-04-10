@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Omwentelingsoppervlakken}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $C$ een kromme in het xz-vlak (met $x \ge 0$), gegeven door $\vec{c}(\scalar{u}) = (\scalar{R(u)}, \scalar{0}, \scalar{z(u)})$, met $\scalar{R(u)} \ge \scalar{0}$.
+Het omwentelingsoppervlak $S$ ontstaat door $C$ te wentelen om de Z-as.
+Parameter $\scalar{u}$ beschrijft de genererende kromme, $\scalar{v} \in [\scalar{0, 2\pi}]$ is de omwentelingshoek.
+$\vec{P}(\scalar{u, v}) = (\scalar{x(u,v)}, \scalar{y(u,v)}, \scalar{z(u,v)})$ is de parametervoorstelling van $S$.
+
+% --- Sectie: Algemeen Omwentelingsoppervlak (rond Z-as) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Algemeen Omwentelingsoppervlak (rond Z-as)}}
+\par
+}%
+\textit{Parametervoorstelling:}
+\[
+\vec{P}(\scalar{u, v}) = (\scalar{R(u) \cos v}, \scalar{R(u) \sin v}, \scalar{z(u)})
+\]
+\textit{Partiële afgeleiden:}
+\[
+\vec{P}_u(\scalar{u, v}) = (\scalar{R'(u) \cos v}, \scalar{R'(u) \sin v}, \scalar{z'(u)})
+\]
+\[
+\vec{P}_v(\scalar{u, v}) = (\scalar{-R(u) \sin v}, \scalar{R(u) \cos v}, \scalar{0})
+\]
+\textit{Normaalvector (niet genormaliseerd):}
+\[
+\vec{N}_{uv} = \vec{P}_u \times \vec{P}_v = (\scalar{-z'(u) R(u) \cos v}, \scalar{-z'(u) R(u) \sin v}, \scalar{R'(u) R(u)})
+\]
+\textit{Norm van de normaalvector:}
+\[
+\scalar{\|\vec{P}_u \times \vec{P}_v\|} = \scalar{|R(u)| \sqrt{(R'(u))^2 + (z'(u))^2}} = \scalar{R(u) \|\vec{c}'(u)\|} \quad (\text{als } R(u) \ge 0)
+\]
+\textit{Regulier punt:} Als $\scalar{R(u) \neq 0}$ en $\vec{c}'(u) = (\scalar{R'(u)}, \scalar{0}, \scalar{z'(u)}) \neq \vec{0}$.
+
+% --- Sectie: Specifieke Voorbeelden (Omwenteling rond Z-as) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Specifieke Voorbeelden (Omwenteling rond Z-as)}}
+\par
+}%
+\textit{Cilinder:} Genererende kromme $\vec{c}(u) = (\scalar{R}, \scalar{0}, \scalar{u})$ ($\scalar{R}$ constant, $\scalar{R>0}$).
+\[
+\text{Parametrisch: } \vec{P}(\scalar{u, v}) = (\scalar{R \cos v}, \scalar{R \sin v}, \scalar{u}) \quad (\scalar{u \in \mathbb{R}, v \in [0, 2\pi]})
+\]
+\[
+\text{Cartesisch: } \scalar{x^2 + y^2 = R^2}
+\]
+\[
+\text{Normaalvector: } \vec{P}_u \times \vec{P}_v = (\scalar{-R \cos v}, \scalar{-R \sin v}, \scalar{0})
+\]
+
+\vspace{1em}
+\textit{Kegel:} Genererende kromme $\vec{c}(u) = (\scalar{k u}, \scalar{0}, \scalar{u})$ ($\scalar{k>0}$, apex in oorsprong).
+\[
+\text{Parametrisch: } \vec{P}(\scalar{u, v}) = (\scalar{k u \cos v}, \scalar{k u \sin v}, \scalar{u}) \quad (\scalar{u \in \mathbb{R}, v \in [0, 2\pi]})
+\]
+\[
+\text{Cartesisch: } \scalar{x^2 + y^2 = k^2 z^2} \quad \text{(of } \scalar{x^2+y^2 = (\tan^2 \alpha) z^2} \text{ met } k = \tan \alpha)
+\]
+
+\vspace{1em}
+\textit{Bol:} Genererende kromme $\vec{c}(u) = (\scalar{R \cos u}, \scalar{0}, \scalar{R \sin u})$ ($\scalar{R}$ constant, $\scalar{u \in [-\pi/2, \pi/2]}$).
+\[
+\text{Parametrisch: } \vec{P}(\scalar{u, v}) = (\scalar{R \cos u \cos v}, \scalar{R \cos u \sin v}, \scalar{R \sin u}) \quad (\scalar{v \in [0, 2\pi]})
+\]
+\[
+\text{Cartesisch: } \scalar{x^2 + y^2 + z^2 = R^2}
+\]
+
+\vspace{1em}
+\textit{Torus:} Genererende kromme (cirkel) $\vec{c}(u) = (\scalar{a + R \cos u}, \scalar{0}, \scalar{R \sin u})$ ($\scalar{a > R > 0}$ constant, $\scalar{u \in [0, 2\pi]}$).
+\[
+\text{Parametrisch: } \vec{P}(\scalar{u, v}) = (\scalar{(a + R \cos u) \cos v}, \scalar{(a + R \cos u) \sin v}, \scalar{R \sin u}) \quad (\scalar{v \in [0, 2\pi]})
+\]
+\[
+\text{Cartesisch: } \scalar{(\sqrt{x^2+y^2} - a)^2 + z^2 = R^2}
+\]
+
+
+\end{document}

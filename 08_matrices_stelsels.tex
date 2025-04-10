@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230, 80, 80}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal) - hier gebruikt voor kolomvectoren x, b
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+% Commando voor rang (Rank)
+\DeclareMathOperator{\rk}{rk}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Matrices, Determinanten en Stelsels}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $\mat{A} = (\scalar{a_{ij}}), \mat{B} = (\scalar{b_{ij}})$ matrices, $\scalar{\lambda}$ een scalair.
+$\mat{I}$ is de identiteitsmatrix, $\mat{O}$ de nulmatrix.
+$\vec{x}$ is een kolomvector van onbekenden, $\vec{b}$ een kolomvector van constanten.
+
+% --- Sectie: Matrixbewerkingen ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Matrixbewerkingen}}
+\par
+}%
+\textit{Som ($\mat{A}, \mat{B}$ van zelfde dimensie $m \times n$):}
+\[
+\mat{A} + \mat{B} = (\scalar{a_{ij} + b_{ij}})
+\]
+\textit{Scalaire Vermenigvuldiging:}
+\[
+\scalar{\lambda} \mat{A} = (\scalar{\lambda a_{ij}})
+\]
+\textit{Matrix Vermenigvuldiging ($\mat{A}$ is $m \times n$, $\mat{B}$ is $n \times p$):} $\mat{C} = \mat{A}\mat{B}$ is $m \times p$ met
+\[
+\scalar{c_{ik}} = \sum_{j=1}^{\scalar{n}} \scalar{a_{ij} b_{jk}}
+\]
+\textit{Eigenschappen Product:} $\mat{A}(\mat{BC}) = (\mat{AB})\mat{C}$, $\mat{A}(\mat{B+C}) = \mat{AB} + \mat{AC}$, $(\mat{A+B})\mat{C} = \mat{AC} + \mat{BC}$. Let op: $\mat{AB} \neq \mat{BA}$ in het algemeen.
+
+\textit{Transponeren:} $\mat{A^T} = (\scalar{a_{ji}})$ (rijen worden kolommen).
+\[
+\mat{(A+B)^T} = \mat{A^T + B^T}, \quad \mat{(\lambda A)^T} = \scalar{\lambda} \mat{A^T}, \quad \mat{(AB)^T} = \mat{B^T A^T}, \quad \mat{(A^T)^T} = \mat{A}
+\]
+
+% --- Sectie: Speciale Matrices ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Speciale Matrices}} ($\mat{A}$ is vierkant)
+\par
+}%
+\textit{Identiteitsmatrix $\mat{I}$:} $\mat{I} = (\scalar{\delta_{ij}})$ ($\delta_{ij} = 1$ als $i=j$, $0$ anders). $\mat{AI} = \mat{IA} = \mat{A}$.
+\textit{Symmetrisch:} $\mat{A^T = A}$.
+\textit{Anti-/Scheefsymmetrisch:} $\mat{A^T = -A}$.
+\textit{Orthogonaal:} $\mat{A^T A} = \mat{A A^T} = \mat{I}$ (equivalent: $\mat{A^T = A^{-1}}$). Kolommen/rijen vormen orthonormale basis.
+
+% --- Sectie: Determinanten ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Determinanten}} ($\mat{A}$ is $n \times n$)
+\par
+}%
+\textit{Definitie (Co-factorontwikkeling naar rij $i$):} $\mat{C_{ij}} = \scalar{(-1)^{i+j}} \mat{M_{ij}}$ (cofactor), $\mat{M_{ij}}$ (minor) is determinant van submatrix na schrappen rij $i$, kolom $j$.
+\[
+\mat{\det(A)} = \sum_{j=1}^{\scalar{n}} \scalar{a_{ij}} \mat{C_{ij}} = \sum_{j=1}^{\scalar{n}} \scalar{(-1)^{i+j} a_{ij}} \mat{M_{ij}}
+\]
+(Ook ontwikkeling naar kolom $j$ mogelijk: $\mat{\det(A)} = \sum_{i=1}^{\scalar{n}} \scalar{a_{ij}} \mat{C_{ij}}$)
+
+\textit{Geval 2x2:} $\mat{\det \begin{pmatrix} \scalar{a} & \scalar{b} \\ \scalar{c} & \scalar{d} \end{pmatrix}} = \scalar{ad - bc}$
+
+\textit{Eigenschappen:}
+\[
+\mat{\det(A^T)} = \mat{\det(A)}
+\]
+\[
+\mat{\det(AB)} = \mat{\det(A)}\mat{\det(B)}
+\]
+\[
+\mat{\det(I)} = \scalar{1}
+\]
+Rij/kolom operaties: Wisselen $\implies \times \scalar{(-1)}$, $\times \scalar{\lambda} \implies \times \scalar{\lambda}$, Combinatie $\implies$ onveranderd.
+\[
+\mat{\det(A)} = \scalar{0} \iff \mat{A} \text{ is singulier (niet-inverteerbaar)} \iff \text{rijen/kolommen zijn lineair afhankelijk.}
+\]
+
+% --- Sectie: Inverse Matrix ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Inverse Matrix}} ($\mat{A}$ is $n \times n$)
+\par
+}%
+\textit{Definitie:} $\mat{A^{-1}}$ is de matrix waarvoor $\mat{A A^{-1}} = \mat{A^{-1} A} = \mat{I}$.
+\textit{Bestaan:} $\mat{A^{-1}}$ bestaat $\iff \mat{\det(A)} \neq \scalar{0}$.
+\textit{Formule (Adjunctmatrix):} $\mat{\text{adj}(A)} = \mat{C^T}$ (getransponeerde van cofactormatrix $\mat{C} = (\mat{C_{ij}})$).
+\[
+\mat{A^{-1}} = \frac{\scalar{1}}{\mat{\det(A)}} \mat{\text{adj}(A)} = \frac{\scalar{1}}{\mat{\det(A)}} \mat{C^T}
+\]
+\textit{Eigenschappen:}
+\[
+\mat{(A^{-1})^{-1}} = \mat{A}, \quad \mat{(AB)^{-1}} = \mat{B^{-1} A^{-1}}, \quad \mat{(A^T)^{-1}} = \mat{(A^{-1})^T}
+\]
+
+% --- Sectie: Stelsels Lineaire Vergelijkingen ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Stelsels Lineaire Vergelijkingen}}
+\par
+}%
+Stelsel van $m$ vergelijkingen in $n$ onbekenden: $\mat{A} \vec{x} = \vec{b}$. $\mat{A}$ is $m \times n$, $\vec{x}$ is $n \times 1$, $\vec{b}$ is $m \times 1$.
+Uitgebreide matrix: $\mat{[A | \vec{b}]}$.
+Rang: $\scalar{\rk(A)}$ = max. aantal lin. onafh. rijen/kolommen.
+
+\textit{Stelling van Rouché-Capelli (Hoofdwet):}
+\[
+\text{Stelsel } \mat{A} \vec{x} = \vec{b} \text{ heeft oplossing(en)} \iff \scalar{\rk(A)} = \scalar{\rk([A | \vec{b}])}
+\]
+\textit{Aantal Oplossingen (als oplossing bestaat, $\scalar{r = \rk(A)}$):}
+\begin{itemize}
+    \item Unieke oplossing $\iff \scalar{r = n}$ (aantal onbekenden).
+    \item Oneindig veel oplossingen $\iff \scalar{r < n}$. Dimensie oplossingsruimte = $\scalar{n - r}$. Algemene oplossing = particuliere oplossing + algemene oplossing homogeen stelsel.
+\end{itemize}
+\textit{Homogeen Stelsel ($\mat{A} \vec{x} = \vec{0}$):} Altijd triviale oplossing $\vec{x} = \vec{0}$.
+\[
+\text{Niet-triviale oplossingen} \iff \scalar{\rk(A) < n} \quad (\text{Voor vierkante matrix } \mat{A}: \iff \mat{\det(A)} = \scalar{0})
+\]
+\textit{Vierkant Stelsel ($\mat{A}$ is $n \times n$):}
+\[
+\text{Unieke oplossing} \iff \mat{\det(A)} \neq \scalar{0}. \quad \text{Oplossing: } \vec{x} = \mat{A^{-1}} \vec{b}
+\]
+\textit{Regel van Cramer (als $\mat{\det(A)} \neq \scalar{0}$):} $\mat{A_i}$ is $\mat{A}$ met $i$-de kolom vervangen door $\vec{b}$.
+\[
+\scalar{x_i} = \frac{\mat{\det(A_i)}}{\mat{\det(A)}}
+\]
+\textit{Methode van Gauss(-Jordan):} Gebruik elementaire rijoperaties op $\mat{[A|\vec{b}]}$ om (gereduceerde) rij-echelonvorm te bekomen en stelsel op te lossen.
+
+\end{document}

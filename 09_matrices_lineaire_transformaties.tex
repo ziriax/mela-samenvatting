@@ -1,0 +1,157 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices/transformaties
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices en lineaire transformaties (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+% Operatoren voor Kern, Beeld, Dim, Rank, Nullity
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\im}{Im} % Image, gebruik \im want \Im is imaginary part
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\nullity}{null}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Matrices en Lineaire Transformaties}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $V, W$ vectorruimten over veld $\field{F}$. $\vec{u}, \vec{v} \in V$. $\scalar{\lambda, \mu} \in \field{F}$.
+$\mat{T}: V \to W$ is een lineaire transformatie. $\mat{A}$ is een matrix.
+$B = \{\vec{e_1}, \dots, \vec{e_n}\}$ basis voor $V$. $C = \{\vec{f_1}, \dots, \vec{f_m}\}$ basis voor $W$.
+$[\vec{v}]_B$ is de coördinatenvector van $\vec{v}$ t.o.v. basis $B$.
+$\mat{P}, \mat{Q}$ zijn overgangsmatrices (change-of-basis matrices).
+
+% --- Sectie: Lineaire Transformatie: Definitie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Lineaire Transformatie: Definitie}}
+\par
+}%
+Een afbeelding $\mat{T}: V \to W$ is lineair als $\forall \vec{u}, \vec{v} \in V, \forall \scalar{\lambda} \in \field{F}$:
+\[
+\mat{T}(\vec{u} + \vec{v}) = \mat{T}(\vec{u}) + \mat{T}(\vec{v}) \quad \text{(Additiviteit)}
+\]
+\[
+\mat{T}(\scalar{\lambda} \vec{v}) = \scalar{\lambda} \mat{T}(\vec{v}) \quad \text{(Homogeniteit)}
+\]
+Equivalent Criterium: $\forall \vec{u}, \vec{v} \in V, \forall \scalar{\lambda, \mu} \in \field{F}$:
+\[
+\mat{T}(\scalar{\lambda}\vec{u} + \scalar{\mu}\vec{v}) = \scalar{\lambda} \mat{T}(\vec{u}) + \scalar{\mu} \mat{T}(\vec{v})
+\]
+\textit{Matrix als Lineaire Transformatie:} Voor $\mat{A} \in \field{F}^{m \times n}$, $\mat{T_A}: \field{F}^{n \times 1} \to \field{F}^{m \times 1}$ met:
+\[
+\mat{T_A}(\vec{x}) = \mat{A} \vec{x}
+\]
+
+% --- Sectie: Kern (Nulruimte) en Beeld (Kolomruimte) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Kern (Nulruimte) en Beeld (Kolomruimte)}}
+\par
+}%
+\textit{Kern (Kernel / Nulruimte):} Deelruimte van $V$.
+\[
+\Ker(\mat{T}) = \{ \vec{v} \in V \mid \mat{T}(\vec{v}) = \vec{0}_W \}
+\]
+Voor $\mat{T_A}$: $\Ker(\mat{T_A}) = N(\mat{A}) = \{ \vec{x} \in \field{F}^{n \times 1} \mid \mat{A} \vec{x} = \vec{0} \}$ (Oplossingsruimte homogeen stelsel).
+\textit{Nullity:} $\scalar{\nullity(T)} = \scalar{\Dim(\Ker(T))}$.
+
+\textit{Beeld (Image / Range / Kolomruimte):} Deelruimte van $W$.
+\[
+\im(\mat{T}) = \{ \mat{T}(\vec{v}) \mid \vec{v} \in V \} = \{ \vec{w} \in W \mid \exists \vec{v} \in V: \mat{T}(\vec{v}) = \vec{w} \}
+\]
+Voor $\mat{T_A}$: $\im(\mat{T_A}) = R(\mat{A}) = \{ \mat{A} \vec{x} \mid \vec{x} \in \field{F}^{n \times 1} \}$ (Span van kolommen van A).
+\textit{Rank:} $\scalar{\rk(T)} = \scalar{\Dim(\im(T))}$.
+
+% --- Sectie: Dimensiestelling (Rank-Nullity) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Dimensiestelling (Rank-Nullity Theorem)}}
+\par
+}%
+Voor een lineaire transformatie $\mat{T}: V \to W$ met $\scalar{\Dim(V)}$ eindig:
+\[
+\scalar{\Dim(V)} = \scalar{\Dim(\Ker(T))} + \scalar{\Dim(\im(T))}
+\]
+\[
+\scalar{\Dim(V)} = \scalar{\nullity(T)} + \scalar{\rk(T)}
+\]
+Voor een matrix $\mat{A} \in \field{F}^{m \times n}$:
+\[
+\scalar{n} = \scalar{\nullity(A)} + \scalar{\rk(A)}
+\]
+($\rk(A)$ is de rang van de matrix zoals in vorig hoofdstuk).
+
+% --- Sectie: Matrixrepresentatie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Matrixrepresentatie}} ($\mat{T}: V \to W$)
+\par
+}%
+Zij $B = \{\vec{e_1}, \dots, \vec{e_n}\}$ basis van $V$, $C = \{\vec{f_1}, \dots, \vec{f_m}\}$ basis van $W$.
+De matrix $\mat{A} = \mat{[T]_C^B} \in \field{F}^{m \times n}$ wordt gegeven door:
+\[
+\mat{A} = \Big[ [\mat{T}(\vec{e_1})]_C \quad [\mat{T}(\vec{e_2})]_C \quad \dots \quad [\mat{T}(\vec{e_n})]_C \Big]
+\]
+(Kolom $j$ van $\mat{A}$ is de coördinatenvector van $\mat{T}(\vec{e_j})$ t.o.v. basis $C$).
+Relatie tussen coördinaten:
+\[
+[\mat{T}(\vec{v})]_C = \mat{[T]_C^B} [\vec{v}]_B
+\]
+
+% --- Sectie: Basisverandering ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Basisverandering}}
+\par
+}%
+Zij $B, B'$ bases van $V$. $C, C'$ bases van $W$.
+\textit{Overgangsmatrix van $B$ naar $B'$:} $\mat{P} = \mat{P_{B \to B'}}$
+\[
+\mat{P} = \Big[ [\vec{e'_1}]_B \quad [\vec{e'_2}]_B \quad \dots \quad [\vec{e'_n}]_B \Big] \quad (\mat{P} \text{ is inverteerbaar})
+\]
+\textit{Coördinatentransformatie:}
+\[
+[\vec{v}]_B = \mat{P} [\vec{v}]_{B'}
+\quad \implies \quad
+[\vec{v}]_{B'} = \mat{P^{-1}} [\vec{v}]_B
+\]
+\textit{Verandering van matrixrepresentatie ($\mat{T}: V \to V$):}
+Zij $\mat{A} = \mat{[T]_B^B}$ en $\mat{A'} = \mat{[T]_{B'}^{B'}}$.
+\[
+\mat{A'} = \mat{P^{-1}} \mat{A} \mat{P} \quad (\mat{A} \text{ en } \mat{A'} \text{ zijn gelijkvormig/similar})
+\]
+\textit{Verandering van matrixrepresentatie ($\mat{T}: V \to W$):}
+Zij $\mat{A} = \mat{[T]_C^B}$ en $\mat{A'} = \mat{[T]_{C'}^{B'}}$.
+Overgangsmatrix in $V$: $\mat{P} = \mat{P_{B \to B'}}$. Overgangsmatrix in $W$: $\mat{Q} = \mat{P_{C \to C'}}$.
+\[
+\mat{A'} = \mat{Q^{-1}} \mat{A} \mat{P} \quad (\mat{A} \text{ en } \mat{A'} \text{ zijn equivalent})
+\]
+
+\end{document}

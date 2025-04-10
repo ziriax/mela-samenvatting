@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Krommen en Oppervlakken}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $\scalar{t}, \scalar{u}, \scalar{v} \in \mathbb{R}$ parameters.
+Zij $\vec{f}(\scalar{t}) = (\scalar{f_1(t)}, \scalar{f_2(t)}, \scalar{f_3(t)})$ een vectorfunctie voor een kromme $C$.
+Zij $\vec{P}(\scalar{u, v}) = (\scalar{x(u,v)}, \scalar{y(u,v)}, \scalar{z(u,v)})$ een vectorfunctie voor een oppervlak $S$.
+Afgeleiden naar $t$: $\vec{f}'(t), \vec{f}''(t)$, etc.
+Partiële afgeleiden naar $u, v$: $\vec{P}_u = \partial\vec{P}/\partial\scalar{u}$, $\vec{P}_v = \partial\vec{P}/\partial\scalar{v}$.
+Booglengteparameter: $\scalar{s}$.
+
+% --- Sectie: Krommen (Parametrisch) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Krommen (Parametrisch)}}
+\par
+}%
+\textit{Raakvector:}
+\[
+\vec{f}'(\scalar{t}) = (\scalar{f_1'(t)}, \scalar{f_2'(t)}, \scalar{f_3'(t)})
+\]
+\textit{Snelheid (scalair):}
+\[
+\scalar{v(t)} = \scalar{\|\vec{f}'(t)\|} = \scalar{\sqrt{f_1'(t)^2 + f_2'(t)^2 + f_3'(t)^2}}
+\]
+\textit{Booglengte van $t_0$ tot $t_1$:}
+\[
+\scalar{L} = \int_{\scalar{t_0}}^{\scalar{t_1}} \scalar{\|\vec{f}'(t)\|} d\scalar{t} = \int_{\scalar{t_0}}^{\scalar{t_1}} \scalar{v(t)} d\scalar{t}
+\]
+\textit{Booglengteparameter $s$ (vanaf $t_0$):}
+\[
+\scalar{s(t)} = \int_{\scalar{t_0}}^{\scalar{t}} \scalar{\|\vec{f}'(\tau)\|} d\scalar{\tau} \quad \implies \quad \frac{d\scalar{s}}{d\scalar{t}} = \scalar{\|\vec{f}'(t)\|} = \scalar{v(t)}
+\]
+\textit{Eenheidsraakvector (Unit Tangent):}
+\[
+\vec{T}(\scalar{t}) = \frac{\vec{f}'(\scalar{t})}{\scalar{\|\vec{f}'(t)\|}} = \frac{\vec{f}'(\scalar{t})}{\scalar{v(t)}}
+\]
+\[
+\vec{T}(\scalar{s}) = \frac{d\vec{f}}{d\scalar{s}} \quad \text{(als geparametriseerd met booglengte)}
+\]
+\textit{Kromming (Curvature):} ($\scalar{\kappa \ge 0}$)
+\[
+\scalar{\kappa(s)} = \scalar{\left\| \frac{d\vec{T}}{d\scalar{s}} \right\|}
+\]
+\[
+\scalar{\kappa(t)} = \frac{\scalar{\|\vec{T}'(t)\|}}{\scalar{v(t)}} = \frac{\scalar{\|\vec{f}'(t) \times \vec{f}''(t)\|}}{\scalar{\|\vec{f}'(t)\|^3}} = \frac{\scalar{\|\vec{f}'(t) \times \vec{f}''(t)\|}}{\scalar{v(t)^3}}
+\]
+\textit{Hoofdnormaalvector (Principal Normal):}
+\[
+\vec{N}(\scalar{s}) = \frac{1}{\scalar{\kappa(s)}} \frac{d\vec{T}}{d\scalar{s}} \quad (\text{als } \kappa \neq 0)
+\]
+\[
+\vec{N}(\scalar{t}) = \frac{\vec{T}'(\scalar{t})}{\scalar{\|\vec{T}'(t)\|}} \quad (\text{als } \vec{T}'(t) \neq \vec{0})
+\]
+($\vec{N} \perp \vec{T}$, $\|\vec{N}\| = \scalar{1}$)
+\textit{Binormaalvector:}
+\[
+\vec{B}(\scalar{s}) = \vec{T}(\scalar{s}) \times \vec{N}(\scalar{s})
+\]
+($\vec{B} \perp \vec{T}$, $\vec{B} \perp \vec{N}$, $\|\vec{B}\| = \scalar{1}$)
+\textit{Frenet-Trieder:} $(\vec{T}, \vec{N}, \vec{B})$ vormt een rechtshandig orthonormaal stelsel.
+\textit{Torsie:} ($\tau$ meet draaiing uit osculatievlak)
+\[
+\frac{d\vec{B}}{d\scalar{s}} = \scalar{-\tau(s)} \vec{N}(\scalar{s})
+\]
+\[
+\scalar{\tau(t)} = \frac{\scalar{(\vec{f}'(t) \times \vec{f}''(t)) \cdot \vec{f}'''(t)}}{\scalar{\|\vec{f}'(t) \times \vec{f}''(t)\|^2}} \quad (\text{als noemer } \neq 0)
+\]
+\textit{Frenet-Serret Formules (geparametriseerd met booglengte $s$):}
+\begin{align*}
+\frac{d\vec{T}}{d\scalar{s}} &= \scalar{\kappa} \vec{N} \\
+\frac{d\vec{N}}{d\scalar{s}} &= \scalar{-\kappa} \vec{T} + \scalar{\tau} \vec{B} \\
+\frac{d\vec{B}}{d\scalar{s}} &= \scalar{-\tau} \vec{N}
+\end{align*}
+
+% --- Sectie: Oppervlakken (Parametrisch) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Oppervlakken (Parametrisch)}}
+\par
+}%
+\textit{Parametervoorstelling:}
+\[
+\vec{P}(\scalar{u, v}) = (\scalar{x(u,v)}, \scalar{y(u,v)}, \scalar{z(u,v)})
+\]
+\textit{Tangentvectoren aan coördinaatkrommen:}
+\[
+\vec{P}_u = \frac{\partial\vec{P}}{\partial\scalar{u}} = (\scalar{x_u, y_u, z_u})
+\]
+\[
+\vec{P}_v = \frac{\partial\vec{P}}{\partial\scalar{v}} = (\scalar{x_v, y_v, z_v})
+\]
+\textit{Normaalvector (niet genormaliseerd):}
+\[
+\vec{N}_{uv} = \vec{P}_u \times \vec{P}_v
+\]
+\textit{Regulier punt:} Punt waar $\vec{P}_u \times \vec{P}_v \neq \vec{0}$.
+\textit{Eenheidsnormaalvector (Unit Normal):}
+\[
+\vec{n} = \frac{\vec{P}_u \times \vec{P}_v}{\scalar{\|\vec{P}_u \times \vec{P}_v\|}} \quad (\text{in regulier punt})
+\]
+\textit{Raakvlak in $\punt{P_0} = \vec{P}(\scalar{u_0, v_0})$:} (Vlak door $\punt{P_0}$ met normaal $\vec{N}_{uv}(\scalar{u_0, v_0})$)
+\[
+(\vec{P}_u(\scalar{u_0, v_0}) \times \vec{P}_v(\scalar{u_0, v_0})) \cdot (\vec{p} - \vec{P}(\scalar{u_0, v_0})) = \scalar{0}
+\]
+of in termen van $\vec{n} = (\scalar{a,b,c})$ en $\punt{P_0} = (\scalar{x_0, y_0, z_0})$:
+\[
+\scalar{a(x-x_0) + b(y-y_0) + c(z-z_0)} = \scalar{0}
+\]
+
+\end{document}

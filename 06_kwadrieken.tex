@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Kwadrieken}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Een kwadriek is een oppervlak met algemene vergelijking (t.o.v. een orthonormaal stelsel):
+\[
+\scalar{F(x,y,z)} = \scalar{a_{11}x^2+a_{22}y^2+a_{33}z^2+2a_{12}xy+2a_{13}xz+2a_{23}yz + 2a_{14}x+2a_{24}y+2a_{34}z+a_{44}=0}
+\]
+met minstens één coëfficiënt van een kwadratische term verschillend van nul.
+In matrixvorm (homogene coördinaten $\mat{X} = [\scalar{x, y, z, 1}]^T$): $\mat{X^T A X = 0}$.
+Na een geschikte coördinatentransformatie (translatie en rotatie) kan elke kwadriek (in de nieuwe coördinaten $\scalar{x', y', z'}$) beschreven worden door één van de volgende standaardvergelijkingen. We laten de accenten weg en nemen aan $\scalar{a, b, c, p, q > 0}$.
+
+% --- Sectie: Standaardvergelijkingen van Kwadrieken ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Standaardvergelijkingen van Kwadrieken}}
+\par
+}%
+
+\textit{Ellipsoïde:}
+\[
+\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} + \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{1}
+\]
+(Bol als $\scalar{a=b=c}$)
+
+\vspace{1em}
+\textit{Hyperboloïde met één blad:} (Omwentelingsas langs Z)
+\[
+\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} - \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{1}
+\]
+(Permutaties voor andere omwentelingsassen mogelijk)
+
+\vspace{1em}
+\textit{Hyperboloïde met twee bladen:} (As langs Z)
+\[
+-\frac{\scalar{x^2}}{\scalar{a^2}} - \frac{\scalar{y^2}}{\scalar{b^2}} + \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{1} \quad \left(\text{of } \frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} - \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{-1}\right)
+\]
+(Permutaties voor andere assen mogelijk)
+
+\vspace{1em}
+\textit{Elliptische Kegel:} (As langs Z)
+\[
+\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} - \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{0}
+\]
+(Permutaties voor andere assen mogelijk)
+
+\vspace{1em}
+\textit{Elliptische Paraboloïde:} (Top in oorsprong, as langs Z, opent naar boven)
+\[
+\scalar{z} = \frac{\scalar{x^2}}{\scalar{p}} + \frac{\scalar{y^2}}{\scalar{q}}
+\]
+(Permutaties/richtingen mogelijk)
+
+\vspace{1em}
+\textit{Hyperbolische Paraboloïde (Zadeloppervlak):} (Top in oorsprong, as langs Z)
+\[
+\scalar{z} = \frac{\scalar{x^2}}{\scalar{p}} - \frac{\scalar{y^2}}{\scalar{q}}
+\]
+(Permutaties/richtingen mogelijk)
+
+\vspace{1em}
+\textit{Elliptische Cilinder:} (Beschrijvenden parallel aan Z-as)
+\[
+\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{1}
+\]
+(Permutaties voor andere asrichtingen mogelijk)
+
+\vspace{1em}
+\textit{Hyperbolische Cilinder:} (Beschrijvenden parallel aan Z-as)
+\[
+\frac{\scalar{x^2}}{\scalar{a^2}} - \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{1} \quad \text{of} \quad -\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{1}
+\]
+(Permutaties voor andere asrichtingen mogelijk)
+
+\vspace{1em}
+\textit{Parabolische Cilinder:} (Beschrijvenden parallel aan Z-as, top rakend aan XZ-vlak)
+\[
+\scalar{y^2 = 2px} \quad (\text{of } \scalar{x^2 = 2py})
+\]
+(Permutaties/richtingen mogelijk)
+
+% --- Sectie: Ontaarde Kwadrieken ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Ontaarde Kwadrieken (Voorbeelden)}}
+\par
+}%
+\textit{Twee snijdende vlakken:} $\frac{\scalar{x^2}}{\scalar{a^2}} - \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{0}$
+
+\vspace{0.5em}
+\textit{Twee evenwijdige vlakken:} $\scalar{x^2 = a^2}$
+
+\vspace{0.5em}
+\textit{Twee samenvallende vlakken:} $\scalar{x^2 = 0}$
+
+\vspace{0.5em}
+\textit{(Rechte) Lijn (Z-as):} $\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{0}$
+
+\vspace{0.5em}
+\textit{Punt (Oorsprong):} $\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} + \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{0}$
+
+\vspace{0.5em}
+\textit{Lege verzameling (Imaginair):} Bv. $\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} + \frac{\scalar{z^2}}{\scalar{c^2}} = \scalar{-1}$, of $\scalar{x^2 = -a^2}$, of $\frac{\scalar{x^2}}{\scalar{a^2}} + \frac{\scalar{y^2}}{\scalar{b^2}} = \scalar{-1}$
+
+
+\end{document}

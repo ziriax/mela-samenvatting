@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed) - Past kleur toe op de hele matrix omgeving
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Affiene Transformaties}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $\punt{P}(\scalar{x, y, z})$ een punt met plaatsvector $\vec{p}$, en beeld $\punt{P'}(\scalar{x', y', z'})$ met plaatsvector $\vec{p'}$ onder transformatie $\varphi$.
+Zij $\mat{A}$ de matrix van de geassocieerde lineaire afbeelding $L$.
+Zij $\vec{t}$ de beeldvector van de oorsprong $\vec{\varphi(O)}$.
+Zij $\scalar{\theta}$ een rotatiehoek, $\scalar{s_x, s_y, s_z}$ schaalfactoren, $\scalar{k}$ een shearfactor.
+
+% --- Sectie: Algemene Affiene Transformatie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Algemene Affiene Transformatie}}
+\par
+}%
+\textit{Definitie (Barycentrisch):} $\varphi(\sum \scalar{\alpha_i} \punt{P_i}) = \sum \scalar{\alpha_i} \varphi(\punt{P_i})$ voor $\sum \scalar{\alpha_i} = \scalar{1}$.
+
+\textit{Vectorieel:}
+\[
+\vec{p'} = \vec{\varphi(O)} + L(\vec{p}) = \vec{t} + L(\vec{p})
+\]
+\[
+\vec{\varphi(\punt{P})\varphi(\punt{Q})} = L(\vec{\punt{PQ}})
+\]
+\textit{Matrixvorm (t.o.v. oorsprong):}
+\[
+\vec{p'} = \vec{t} + \mat{A} \vec{p}
+\]
+\textit{Homogene Coördinaten (3D):}
+\[
+\begin{pmatrix} \scalar{x'} \\ \scalar{y'} \\ \scalar{z'} \\ \scalar{1} \end{pmatrix}
+=
+\mat{\begin{pmatrix}
+\scalar{a_{11}} & \scalar{a_{12}} & \scalar{a_{13}} & \scalar{t_x} \\
+\scalar{a_{21}} & \scalar{a_{22}} & \scalar{a_{23}} & \scalar{t_y} \\
+\scalar{a_{31}} & \scalar{a_{32}} & \scalar{a_{33}} & \scalar{t_z} \\
+\scalar{0} & \scalar{0} & \scalar{0} & \scalar{1}
+\end{pmatrix}}
+\begin{pmatrix} \scalar{x} \\ \scalar{y} \\ \scalar{z} \\ \scalar{1} \end{pmatrix}
+\quad \text{of} \quad
+\begin{pmatrix} \vec{p'} \\ \scalar{1} \end{pmatrix} = \mat{\begin{pmatrix} A & \vec{t} \\ \vec{0}^T & 1 \end{pmatrix}} \begin{pmatrix} \vec{p} \\ \scalar{1} \end{pmatrix}
+\]
+\textit{Homogene Coördinaten (2D):}
+\[
+\begin{pmatrix} \scalar{x'} \\ \scalar{y'} \\ \scalar{1} \end{pmatrix}
+=
+\mat{\begin{pmatrix}
+\scalar{a_{11}} & \scalar{a_{12}} & \scalar{t_x} \\
+\scalar{a_{21}} & \scalar{a_{22}} & \scalar{t_y} \\
+\scalar{0} & \scalar{0} & \scalar{1}
+\end{pmatrix}}
+\begin{pmatrix} \scalar{x} \\ \scalar{y} \\ \scalar{1} \end{pmatrix}
+\]
+
+% --- Sectie: Isometrieën (Behouden Afstanden) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Isometrieën (Behouden Afstanden)}}
+\par
+}%
+\textit{Translatie ($\vec{u} = (\scalar{u_x, u_y, u_z})$):}
+\[
+\vec{p'} = \vec{p} + \vec{u}
+\quad (\mat{A=I}, \vec{t}=\vec{u})
+\]
+\[
+\text{Homogeen (3D): } \mat{T(\vec{u})} = \mat{\begin{pmatrix} \scalar{1} & \scalar{0} & \scalar{0} & \scalar{u_x} \\ \scalar{0} & \scalar{1} & \scalar{0} & \scalar{u_y} \\ \scalar{0} & \scalar{0} & \scalar{1} & \scalar{u_z} \\ \scalar{0} & \scalar{0} & \scalar{0} & \scalar{1} \end{pmatrix}}
+\]
+\textit{Rotatie (2D, rond O, hoek $\scalar{\theta}$):}
+\[
+\mat{R(\scalar{\theta})} = \mat{\begin{pmatrix} \scalar{\cos\theta} & \scalar{-\sin\theta} \\ \scalar{\sin\theta} & \scalar{\cos\theta} \end{pmatrix}}
+\quad (\vec{t}=\vec{0})
+\]
+\[
+\text{Homogeen (2D): } \mat{\begin{pmatrix} \scalar{\cos\theta} & \scalar{-\sin\theta} & \scalar{0} \\ \scalar{\sin\theta} & \scalar{\cos\theta} & \scalar{0} \\ \scalar{0} & \scalar{0} & \scalar{1} \end{pmatrix}}
+\]
+\textit{Rotaties (3D, rond assen, hoek $\scalar{\theta}$):}
+\[
+\mat{R_x(\scalar{\theta})} = \mat{\begin{pmatrix} \scalar{1} & \scalar{0} & \scalar{0} \\ \scalar{0} & \scalar{\cos\theta} & \scalar{-\sin\theta} \\ \scalar{0} & \scalar{\sin\theta} & \scalar{\cos\theta} \end{pmatrix}}
+\quad
+\mat{R_y(\scalar{\theta})} = \mat{\begin{pmatrix} \scalar{\cos\theta} & \scalar{0} & \scalar{\sin\theta} \\ \scalar{0} & \scalar{1} & \scalar{0} \\ \scalar{-\sin\theta} & \scalar{0} & \scalar{\cos\theta} \end{pmatrix}}
+\quad
+\mat{R_z(\scalar{\theta})} = \mat{\begin{pmatrix} \scalar{\cos\theta} & \scalar{-\sin\theta} & \scalar{0} \\ \scalar{\sin\theta} & \scalar{\cos\theta} & \scalar{0} \\ \scalar{0} & \scalar{0} & \scalar{1} \end{pmatrix}}
+\]
+\textit{Reflectie (2D, t.o.v. O):} $\mat{R_{O}} = \mat{\begin{pmatrix} \scalar{-1} & \scalar{0} \\ \scalar{0} & \scalar{-1} \end{pmatrix}}$
+\textit{Reflectie (2D, t.o.v. assen):} $\mat{R_{x-as}} = \mat{\begin{pmatrix} \scalar{1} & \scalar{0} \\ \scalar{0} & \scalar{-1} \end{pmatrix}}$, $\mat{R_{y-as}} = \mat{\begin{pmatrix} \scalar{-1} & \scalar{0} \\ \scalar{0} & \scalar{1} \end{pmatrix}}$
+\textit{Reflectie (3D, t.o.v. vlakken):} $\mat{R_{xy}} = \mat{\text{diag}(\scalar{1, 1, -1})}$, $\mat{R_{yz}} = \mat{\text{diag}(\scalar{-1, 1, 1})}$, $\mat{R_{xz}} = \mat{\text{diag}(\scalar{1, -1, 1})}$
+
+
+% --- Sectie: Andere Affiene Transformaties ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Andere Affiene Transformaties}}
+\par
+}%
+\textit{Schaling (rond O, factoren $\scalar{s_x, s_y, s_z}$):}
+\[
+\mat{S(\scalar{s_x, s_y, s_z})} = \mat{\begin{pmatrix} \scalar{s_x} & \scalar{0} & \scalar{0} \\ \scalar{0} & \scalar{s_y} & \scalar{0} \\ \scalar{0} & \scalar{0} & \scalar{s_z} \end{pmatrix}}
+\quad (\vec{t}=\vec{0})
+\]
+\[
+\text{Homogeen (3D): } \mat{\begin{pmatrix} \scalar{s_x} & \scalar{0} & \scalar{0} & \scalar{0} \\ \scalar{0} & \scalar{s_y} & \scalar{0} & \scalar{0} \\ \scalar{0} & \scalar{0} & \scalar{s_z} & \scalar{0} \\ \scalar{0} & \scalar{0} & \scalar{0} & \scalar{1} \end{pmatrix}}
+\]
+\textit{Afschuiving (Shear) (2D):}
+\[
+\text{X-shear: } \mat{Sh_x(\scalar{k})} = \mat{\begin{pmatrix} \scalar{1} & \scalar{k} \\ \scalar{0} & \scalar{1} \end{pmatrix}}
+\quad
+\text{Y-shear: } \mat{Sh_y(\scalar{k})} = \mat{\begin{pmatrix} \scalar{1} & \scalar{0} \\ \scalar{k} & \scalar{1} \end{pmatrix}}
+\]
+
+% --- Sectie: Samenstelling ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Samenstelling}}
+\par
+}%
+Als $\varphi = \varphi_n \circ \dots \circ \varphi_2 \circ \varphi_1$, met $\varphi_i$ horend bij homogene matrix $\mat{M_i}$.
+\[
+\text{Homogene matrix van } \varphi: \quad \mat{M_{totaal}} = \mat{M_n} \dots \mat{M_2} \mat{M_1}
+\]
+(Let op de volgorde: transformatie 1 wordt eerst toegepast).
+
+% --- Sectie: Coördinatentransformaties (Passief) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Coördinatentransformaties (Passief)}}
+\par
+}%
+Relatie tussen oude coördinaten $(x,y,z)$ en nieuwe $(x',y',z')$.
+\textit{Translatie van assenstelsel (Nieuwe oorsprong O' is oude punt $\vec{t}$):}
+\[
+\vec{p} = \vec{p'} + \vec{t} \quad \text{of} \quad \vec{p'} = \vec{p} - \vec{t}
+\]
+\[
+\begin{pmatrix} \scalar{x} \\ \scalar{y} \\ \scalar{z} \\ \scalar{1} \end{pmatrix} = \mat{T(\vec{t})} \begin{pmatrix} \scalar{x'} \\ \scalar{y'} \\ \scalar{z'} \\ \scalar{1} \end{pmatrix}
+\quad \text{vs. Actief: }
+\begin{pmatrix} \scalar{x'} \\ \scalar{y'} \\ \scalar{z'} \\ \scalar{1} \end{pmatrix} = \mat{T(\vec{t})} \begin{pmatrix} \scalar{x} \\ \scalar{y} \\ \scalar{z} \\ \scalar{1} \end{pmatrix}
+\]
+\textit{Rotatie van assenstelsel (Nieuwe assen t.o.v. oude via $\mat{R}$):}
+\[
+\vec{p} = \mat{R} \vec{p'} \quad \text{of} \quad \vec{p'} = \mat{R^{-1}} \vec{p} = \mat{R^T} \vec{p} \quad (\text{voor rotatiematrix } R)
+\]
+\[
+\begin{pmatrix} \vec{p} \\ \scalar{1} \end{pmatrix} = \mat{\begin{pmatrix} R & \vec{0} \\ \vec{0}^T & 1 \end{pmatrix}} \begin{pmatrix} \vec{p'} \\ \scalar{1} \end{pmatrix}
+\quad \text{vs. Actief: }
+\begin{pmatrix} \vec{p'} \\ \scalar{1} \end{pmatrix} = \mat{\begin{pmatrix} R & \vec{0} \\ \vec{0}^T & 1 \end{pmatrix}} \begin{pmatrix} \vec{p} \\ \scalar{1} \end{pmatrix}
+\]
+
+\end{document}

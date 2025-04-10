@@ -1,0 +1,167 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+% Commando voor basisvectoren (niet vaak nodig hier, maar consistent)
+\newcommand{\evec}[1]{\vec{e}_{\textcolor{scalarBrightBlue}{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart) - kan aangepast worden indien gewenst
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Rechten en Vlakken}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $\punt{P}(\scalar{x, y, z})$, $\punt{P_0}(\scalar{x_0, y_0, z_0})$, $\punt{P_1}(\scalar{x_1, y_1, z_1})$ punten met plaatsvectoren $\vec{p}$, $\vec{p_0}$, $\vec{p_1}$.
+Zij $\vec{u}=(\scalar{u_x, u_y, u_z})$, $\vec{v}=(\scalar{v_x, v_y, v_z})$ richtingsvectoren.
+Zij $\vec{n}=(\scalar{a, b, c})$ een normaalvector van een vlak.
+Zij $\scalar{t}, \scalar{s} \in \mathbb{R}$ parameters.
+
+% --- Sectie: Rechten ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Rechten}}
+\par
+}%
+\textit{Vectorieel parametrisch:}
+\[
+\vec{p} = \vec{p_0} + \scalar{t} \vec{u}
+\]
+\textit{Coördinaten parametrisch:}
+\[
+\begin{cases}
+\scalar{x = x_0 + t u_x} \\
+\scalar{y = y_0 + t u_y} \\
+\scalar{z = z_0 + t u_z}
+\end{cases}
+\]
+\textit{Cartesisch (symmetrisch, als $u_x, u_y, u_z \neq 0$):}
+\[
+\frac{\scalar{x - x_0}}{\scalar{u_x}} = \frac{\scalar{y - y_0}}{\scalar{u_y}} = \frac{\scalar{z - z_0}}{\scalar{u_z}}
+\]
+(Indien een component van $\vec{u}$ nul is, bv. $u_z=0$, wordt de vgl: $\frac{\scalar{x - x_0}}{\scalar{u_x}} = \frac{\scalar{y - y_0}}{\scalar{u_y}}, \scalar{z = z_0}$)
+
+\textit{Cartesisch (als snijlijn van 2 vlakken):}
+\[
+\begin{cases}
+\scalar{a_1 x + b_1 y + c_1 z + d_1 = 0} \\
+\scalar{a_2 x + b_2 y + c_2 z + d_2 = 0}
+\end{cases}
+\quad (\text{met } (\scalar{a_1, b_1, c_1}) \text{ niet evenredig met } (\scalar{a_2, b_2, c_2}))
+\]
+\textit{Rechte door 2 punten $\punt{P_1}, \punt{P_2}$:}
+\[
+\vec{p} = \vec{p_1} + \scalar{t} (\vec{p_2} - \vec{p_1})
+\]
+
+% --- Sectie: Vlakken ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Vlakken}}
+\par
+}%
+\textit{Vectorieel parametrisch (met $\vec{u}, \vec{v}$ niet-collineair):}
+\[
+\vec{p} = \vec{p_0} + \scalar{t} \vec{u} + \scalar{s} \vec{v}
+\]
+\textit{Cartesisch (normaalvorm):}
+\[
+\vec{n} \cdot (\vec{p} - \vec{p_0}) = \scalar{0} \quad (\text{met } \vec{n} \perp \text{ vlak})
+\]
+\textit{Cartesisch (standaardvorm):}
+\[
+\scalar{a x + b y + c z + d = 0} \quad (\text{met } \vec{n} = (\scalar{a, b, c}) \neq \vec{0})
+\]
+\[
+\scalar{d = - (a x_0 + b y_0 + c z_0)} = - \vec{n} \cdot \vec{p_0}
+\]
+\textit{Vlak door 3 niet-collineaire punten $\punt{P_1}, \punt{P_2}, \punt{P_3}$:}
+\[
+\vec{n} = (\vec{p_2} - \vec{p_1}) \times (\vec{p_3} - \vec{p_1})
+\]
+\[
+\scalar{(\vec{p} - \vec{p_1}) \cdot ((\vec{p_2} - \vec{p_1}) \times (\vec{p_3} - \vec{p_1}))} = \scalar{0}
+\]
+\[
+\mat{\det \begin{pmatrix} \scalar{x-x_1} & \scalar{y-y_1} & \scalar{z-z_1} \\ \scalar{x_2-x_1} & \scalar{y_2-y_1} & \scalar{z_2-z_1} \\ \scalar{x_3-x_1} & \scalar{y_3-y_1} & \scalar{z_3-z_1} \end{pmatrix}} = \scalar{0}
+\]
+
+% --- Sectie: Afstanden ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Afstanden}}
+\par
+}%
+\textit{Punt $\punt{P_1}$ tot vlak $\alpha: \scalar{ax+by+cz+d=0}$:}
+\[
+\scalar{\text{dist}(\punt{P_1}, \alpha)} = \frac{\scalar{|a x_1 + b y_1 + c z_1 + d|}}{\scalar{\sqrt{a^2 + b^2 + c^2}}} = \frac{\scalar{|\vec{n} \cdot (\vec{p_1} - \vec{p_0})|}}{\scalar{\|\vec{n}\|}}
+\]
+\textit{Punt $\punt{P_1}$ tot rechte $l$ (door $\punt{P_0}$, richting $\vec{u}$):}
+\[
+\scalar{\text{dist}(\punt{P_1}, l)} = \frac{\scalar{\|(\vec{p_1} - \vec{p_0}) \times \vec{u}\|}}{\scalar{\|\vec{u}\|}}
+\]
+\textit{Tussen 2 evenwijdige rechten $l_1, l_2$ (punt $\punt{P_2}$ op $l_2$):}
+\[
+\scalar{\text{dist}(l_1, l_2)} = \scalar{\text{dist}(\punt{P_2}, l_1)}
+\]
+\textit{Tussen 2 kruisende rechten $l_1$ (door $\punt{P_1}$, $\vec{u_1}$) en $l_2$ (door $\punt{P_2}$, $\vec{u_2}$):}
+\[
+\scalar{\text{dist}(l_1, l_2)} = \frac{\scalar{|(\vec{p_2} - \vec{p_1}) \cdot (\vec{u_1} \times \vec{u_2})|}}{\scalar{\|\vec{u_1} \times \vec{u_2}\|}}
+\]
+
+% --- Sectie: Hoeken ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Hoeken}} ($\theta \in [0, \pi/2]$)
+\par
+}%
+\textit{Tussen 2 rechten $l_1, l_2$ (richtingen $\vec{u_1}, \vec{u_2}$):}
+\[
+\scalar{\cos \theta} = \frac{\scalar{|\vec{u_1} \cdot \vec{u_2}|}}{\scalar{\|\vec{u_1}\| \|\vec{u_2}\|}}
+\]
+\textit{Tussen 2 vlakken $\alpha_1, \alpha_2$ (normalen $\vec{n_1}, \vec{n_2}$):}
+\[
+\scalar{\cos \theta} = \frac{\scalar{|\vec{n_1} \cdot \vec{n_2}|}}{\scalar{\|\vec{n_1}\| \|\vec{n_2}\|}}
+\]
+\textit{Tussen rechte $l$ (richting $\vec{u}$) en vlak $\alpha$ (normaal $\vec{n}$):} ($\phi$ is de hoek, $\phi = \pi/2 - \theta_{normaal}$)
+\[
+\scalar{\sin \phi} = \frac{\scalar{|\vec{u} \cdot \vec{n}|}}{\scalar{\|\vec{u}\| \|\vec{n}\|}}
+\]
+
+% --- Sectie: Onderlinge Ligging / Snijpunten ---
+% \vspace{1.5em} % Marge boven header
+% {\centering
+% \textcolor{headerBrown}{\large\textbf{Onderlinge Ligging / Snijpunten}}
+% \par
+% }%
+% (Voornamelijk procedures, minder pure formules - kan toegevoegd worden indien nodig)
+% \textit{Snijpunt rechte en vlak:} Substitueer param. vgl. rechte in cartesische vgl. vlak, los op naar $t$.
+% \textit{Snijlijn 2 vlakken:} Los stelsel van 2 cartesische vgl. op (parametervergelijking voor de lijn).
+% \textit{Ligging 2 rechten:} Analyseer parallel/collineariteit van $\vec{u_1}, \vec{u_2}$ en of $(\vec{p_2}-\vec{p_1})$ coplanair is met $\vec{u_1}, \vec{u_2}$ (via gemengd product).
+
+\end{document}

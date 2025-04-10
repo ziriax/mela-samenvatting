@@ -1,0 +1,129 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (poging 4)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers (onveranderd)
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren (onveranderd)
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen (was zacht blauw)
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices (onveranderd)
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+% Commando voor basisvectoren (vector Teal, index BrightBlue)
+\newcommand{\evec}[1]{\vec{e}_{\textcolor{scalarBrightBlue}{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Vectoren}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definieer vectoren en scalairen
+Zij $\vec{u} = (\scalar{u_1}, \scalar{u_2}, \scalar{u_3})$, $\vec{v} = (\scalar{v_1}, \scalar{v_2}, \scalar{v_3})$, $\vec{w} = (\scalar{w_1}, \scalar{w_2}, \scalar{w_3})$ t.o.v. een orthonormale basis $(\evec{1}, \evec{2}, \evec{3})$. Zij $\scalar{t} \in \mathbb{R}$ en $\scalar{\theta}$ de hoek tussen $\vec{u}$ en $\vec{v}$.
+
+% --- Sectie: Basisbewerkingen & Norm ---
+\vspace{1.5em} % Marge boven header
+{\centering % Gebruik centering group ipv omgeving
+\textcolor{headerBrown}{\large\textbf{Basisbewerkingen \& Norm}}
+\par % Sluit paragraaf af binnen de group
+}% Einde centering group% Voorkom extra spatie na de group
+\[
+\vec{u} + \vec{v} = (\scalar{u_1 + v_1}, \scalar{u_2 + v_2}, \scalar{u_3 + v_3})
+\]
+\[
+\scalar{t}\vec{u} = (\scalar{t u_1}, \scalar{t u_2}, \scalar{t u_3})
+\]
+\[
+\scalar{\|\vec{u}\|} = \scalar{\sqrt{u_1^2 + u_2^2 + u_3^2}}
+\]
+
+% --- Sectie: Scalair Product ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Scalair Product} ($\cdot$)}
+\par
+}%
+\[
+\vec{u} \cdot \vec{v} = \scalar{\|\vec{u}\| \|\vec{v}\| \cos \theta}
+\]
+\[
+\vec{u} \cdot \vec{v} = \scalar{u_1 v_1 + u_2 v_2 + u_3 v_3}
+\]
+\[
+\vec{u} \cdot \vec{u} = \scalar{\|\vec{u}\|^2}
+\]
+\[
+\scalar{\cos \theta} = \frac{\scalar{\vec{u} \cdot \vec{v}}}{\scalar{\|\vec{u}\| \|\vec{v}\|}} \quad (\vec{u}, \vec{v} \neq \vec{0})
+\]
+\[
+\vec{u} \perp \vec{v} \iff \vec{u} \cdot \vec{v} = \scalar{0} \quad (\vec{u}, \vec{v} \neq \vec{0})
+\]
+
+% --- Sectie: Vectorieel Product ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Vectorieel Product} ($\times$) (enkel in $\mathbb{R}^3$)}
+\par
+}%
+\[
+\scalar{\|\vec{u} \times \vec{v}\|} = \scalar{\|\vec{u}\| \|\vec{v}\| |\sin \theta|} \quad (\text{Opp. parallellogram})
+\]
+\[
+(\vec{u} \times \vec{v}) \perp \vec{u} \quad \text{en} \quad (\vec{u} \times \vec{v}) \perp \vec{v}
+\]
+\begin{align*}
+\vec{u} \times \vec{v} &= \mat{\det \begin{pmatrix} \evec{1} & \evec{2} & \evec{3} \\ \scalar{u_1} & \scalar{u_2} & \scalar{u_3} \\ \scalar{v_1} & \scalar{v_2} & \scalar{v_3} \end{pmatrix}} \\
+&= (\scalar{u_2 v_3 - u_3 v_2})\evec{1} - (\scalar{u_1 v_3 - u_3 v_1})\evec{2} + (\scalar{u_1 v_2 - u_2 v_1})\evec{3} \\
+&= (\scalar{u_2 v_3 - u_3 v_2}, \ \scalar{u_3 v_1 - u_1 v_3}, \ \scalar{u_1 v_2 - u_2 v_1})
+\end{align*}
+\[
+\vec{u} \times \vec{v} = -(\vec{v} \times \vec{u})
+\]
+\[
+\vec{u} \times \vec{u} = \vec{0}
+\]
+\[
+\scalar{\|\vec{u} \times \vec{v}\|^2} = \scalar{\|\vec{u}\|^2 \|\vec{v}\|^2 - (\vec{u} \cdot \vec{v})^2} \quad (\text{Lagrange})
+\]
+
+% --- Sectie: Gemengd Product ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Gemengd Product} (enkel in $\mathbb{R}^3$)}
+\par
+}%
+\[
+\scalar{(\vec{u}\ \vec{v}\ \vec{w})} = \scalar{[\vec{u}, \vec{v}, \vec{w}]} = \scalar{(\vec{u} \times \vec{v}) \cdot \vec{w}} = \scalar{\vec{u} \cdot (\vec{v} \times \vec{w})}
+\]
+\[
+\scalar{(\vec{u}\ \vec{v}\ \vec{w})} = \mat{\det \begin{pmatrix} \scalar{u_1} & \scalar{u_2} & \scalar{u_3} \\ \scalar{v_1} & \scalar{v_2} & \scalar{v_3} \\ \scalar{w_1} & \scalar{w_2} & \scalar{w_3} \end{pmatrix}}
+\]
+\[
+\scalar{\text{Volume parallelepipedum}} = \scalar{|(\vec{u}\ \vec{v}\ \vec{w})|}
+\]
+\[
+\scalar{(\vec{u}\ \vec{v}\ \vec{w})} = \scalar{(\vec{v}\ \vec{w}\ \vec{u})} = \scalar{(\vec{w}\ \vec{u}\ \vec{v})}
+\]
+\[
+\scalar{(\vec{u}\ \vec{v}\ \vec{w})} = \scalar{-(\vec{v}\ \vec{u}\ \vec{w})} = \scalar{-(\vec{u}\ \vec{w}\ \vec{v})} = \dots
+\]
+\[
+\scalar{(\vec{u}\ \vec{v}\ \vec{w})} = \scalar{0} \iff \vec{u}, \vec{v}, \vec{w} \text{ zijn coplanair}
+\]
+
+\end{document}

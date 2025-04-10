@@ -1,0 +1,180 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (aangepast SoftRed)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230, 70, 70}    % Zacht Rood voor matrices/operatoren
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue) - Ook voor resultaat inproduct/norm
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices/operatoren (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Velden (standaard zwart)
+\newcommand{\field}[1]{\mathbb{#1}}
+% Inproduct notatie
+\newcommand{\innerprod}[2]{\scalar{\langle #1, #2 \rangle}}
+% Norm notatie
+\newcommand{\norm}[1]{\scalar{\| #1 \|}}
+% Projectie operator
+\DeclareMathOperator{\proj}{proj}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Inproductruimten}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $V$ een vectorruimte over $\field{K}$ (met $\field{K} = \field{R}$ of $\field{K} = \field{C}$).
+Vectoren: $\vec{u}, \vec{v}, \vec{w} \in V$. Scalairen: $\scalar{\lambda, \mu} \in \field{K}$.
+Inproduct: $\innerprod{\cdot}{\cdot}: V \times V \to \field{K}$.
+
+% --- Sectie: Inproduct: Definitie & Eigenschappen ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Inproduct: Definitie \& Eigenschappen}}
+\par
+}%
+Een functie $\innerprod{\cdot}{\cdot}$ is een inproduct als $\forall \vec{v}, \vec{v_1}, \vec{v_2}, \vec{w} \in V, \forall \scalar{\lambda} \in \field{K}$:
+\begin{itemize}
+    \item[(i)] $\innerprod{v}{v} \ge \scalar{0}$ \quad en \quad $\innerprod{v}{v} = \scalar{0} \iff \vec{v} = \vec{0}$ \quad (Positief definiet)
+    \item[(ii)] $\innerprod{\scalar{\lambda}\vec{v_1} + \vec{v_2}}{w} = \scalar{\lambda}\innerprod{v_1}{w} + \innerprod{v_2}{w}$ \quad (Lineair in 1e argument)
+    \item[(iii)] $\innerprod{v}{w} = \scalar{\overline{\innerprod{w}{v}}}$ \quad (Hermitisch / Conjugaat symmetrisch; Symmetrisch als $\field{K}=\field{R}$)
+\end{itemize}
+Gevolg (Sesquilineariteit):
+\[
+\innerprod{v}{\scalar{\lambda}\vec{w_1} + \vec{w_2}} = \scalar{\overline{\lambda}} \innerprod{v}{w_1} + \innerprod{v}{w_2}
+\]
+Standaard inproduct op $\field{K}^n$: $\innerprod{x}{y} = \sum_{i=1}^{\scalar{n}} \scalar{x_i \overline{y_i}}$ (in $\field{R}^n$: $\sum \scalar{x_i y_i}$).
+
+% --- Sectie: Norm & Ongelijkheid van Cauchy-Schwarz ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Norm & Ongelijkheid van Cauchy-Schwarz}}
+\par
+}%
+\textit{Norm (geïnduceerd door inproduct):}
+\[
+\norm{v} = \scalar{\sqrt{\innerprod{v}{v}}}
+\]
+\textit{Eigenschappen Norm:}
+\begin{itemize}
+    \item $\norm{v} \ge \scalar{0}$ en $\norm{v} = \scalar{0} \iff \vec{v} = \vec{0}$
+    \item $\norm{\scalar{\lambda} \vec{v}} = \scalar{|\lambda|} \norm{v}$
+    \item $\norm{v + w} \le \norm{v} + \norm{w}$ (Driehoeksongelijkheid)
+\end{itemize}
+\textit{Ongelijkheid van Cauchy-Schwarz:}
+\[
+\scalar{|\innerprod{v}{w}|} \le \norm{v} \norm{w}
+\]
+Gelijkheid geldt $\iff \vec{v}$ en $\vec{w}$ zijn lineair afhankelijk.
+
+% --- Sectie: Orthogonaliteit & Pythagoras ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Orthogonaliteit & Pythagoras}}
+\par
+}%
+\textit{Orthogonaliteit:} Vectoren $\vec{v}, \vec{w}$ zijn orthogonaal ($\vec{v} \perp \vec{w}$) als:
+\[
+\innerprod{v}{w} = \scalar{0}
+\]
+\textit{Stelling van Pythagoras:}
+\[
+\vec{v} \perp \vec{w} \implies \norm{v + w}^2 = \norm{v}^2 + \norm{w}^2
+\]
+(Geldt ook voor meer onderling orthogonale vectoren).
+
+% --- Sectie: Orthonormale Bases ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Orthonormale Bases}} ($V$ eindig-dimensionaal)
+\par
+}%
+\textit{Orthogonale Verzameling:} $S = \{\vec{u_1}, \dots, \vec{u_k}\}$ waarbij $\innerprod{u_i}{u_j} = \scalar{0}$ voor $\scalar{i \neq j}$.
+\textit{Orthonormale Verzameling (ONV):} Orthogonaal en $\norm{u_i} = \scalar{1}$ voor alle $i$.
+\[
+\innerprod{u_i}{u_j} = \scalar{\delta_{ij}} \quad (\text{Kronecker delta})
+\]
+Een ONV is altijd lineair onafhankelijk.
+\textit{Orthonormale Basis (ONB):} Een ONV die een basis vormt voor $V$.
+\textit{Coördinaten t.o.v. ONB $B = \{\vec{e_1}, \dots, \vec{e_n}\}$:}
+\[
+\vec{v} = \sum_{i=1}^{\scalar{n}} \innerprod{v}{e_i} \vec{e_i}
+\]
+\textit{Inproduct in ONB-coördinaten:} Als $[\vec{v}]_B = (\scalar{\alpha_i})$, $[\vec{w}]_B = (\scalar{\beta_i})$, dan:
+\[
+\innerprod{v}{w} = \sum_{i=1}^{\scalar{n}} \scalar{\alpha_i \overline{\beta_i}}
+\]
+\textit{Identiteit van Parseval:}
+\[
+\norm{v}^2 = \innerprod{v}{v} = \sum_{i=1}^{\scalar{n}} \scalar{|\innerprod{v}{e_i}|^2}
+\]
+
+% --- Sectie: Gram-Schmidt Procedure ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Gram-Schmidt Procedure}}
+\par
+}%
+Procedure om een basis $\{\vec{v_1}, \dots, \vec{v_n}\}$ om te zetten naar een orthogonale basis $\{\vec{u_1}, \dots, \vec{u_n}\}$ en een orthonormale basis $\{\vec{e_1}, \dots, \vec{e_n}\}$.
+\begin{align*}
+\vec{u_1} &= \vec{v_1} \\
+\vec{u_2} &= \vec{v_2} - \frac{\innerprod{v_2}{u_1}}{\innerprod{u_1}{u_1}} \vec{u_1} \\
+\vec{u_3} &= \vec{v_3} - \frac{\innerprod{v_3}{u_1}}{\innerprod{u_1}{u_1}} \vec{u_1} - \frac{\innerprod{v_3}{u_2}}{\innerprod{u_2}{u_2}} \vec{u_2} \\
+&\vdots \\
+\vec{u_k} &= \vec{v_k} - \sum_{j=1}^{\scalar{k-1}} \frac{\innerprod{v_k}{u_j}}{\norm{u_j}^2} \vec{u_j} \\
+&\vdots \\
+\vec{u_n} &= \vec{v_n} - \sum_{j=1}^{\scalar{n-1}} \frac{\innerprod{v_n}{u_j}}{\norm{u_j}^2} \vec{u_j}
+\end{align*}
+Orthonormale basis: $\vec{e_k} = \frac{\vec{u_k}}{\norm{u_k}}$.
+
+% --- Sectie: Orthogonaal Complement & Projectie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Orthogonaal Complement & Projectie}}
+\par
+}%
+Zij $W$ een deelruimte van $V$.
+\textit{Orthogonaal Complement:}
+\[
+W^{\perp} = \{ \vec{v} \in V \mid \innerprod{v}{w} = \scalar{0} \text{ voor alle } \vec{w} \in W \}
+\]
+$W^{\perp}$ is een deelruimte van $V$.
+\textit{Directe Som Decompositie (V eindig-dim.):}
+\[
+V = W \oplus W^{\perp}
+\]
+\[
+(\vec{v} \in V \implies \exists! \vec{w} \in W, \exists! \vec{w'} \in W^{\perp} : \vec{v} = \vec{w} + \vec{w'})
+\]
+\[
+\scalar{\Dim(V)} = \scalar{\Dim(W)} + \scalar{\Dim(W^{\perp})}
+\]
+\[
+(W^{\perp})^{\perp} = W
+\]
+\textit{Orthogonale Projectie op $W$:} Zij $\{\vec{e_1}, \dots, \vec{e_k}\}$ een ONB voor $W$.
+\[
+\mat{\proj}_W(\vec{v}) = \sum_{i=1}^{\scalar{k}} \innerprod{v}{e_i} \vec{e_i}
+\]
+De vector $\mat{\proj}_W(\vec{v})$ is de unieke vector in $W$ die de afstand $\norm{v - w}$ minimaliseert voor $\vec{w} \in W$.
+De vector $\vec{v} - \mat{\proj}_W(\vec{v})$ ligt in $W^{\perp}$.
+
+\end{document}

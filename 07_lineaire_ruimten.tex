@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (zelfde als vorige keer)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230,  70, 70}  % Zacht rood voor matrices
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Commando voor punten (standaard zwart)
+\newcommand{\punt}[1]{\mathrm{#1}}
+
+% Velden (standaard zwart)
+\newcommand{\field}[1]{\mathbb{#1}}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Lineaire Ruimten}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $V$ een verzameling (vectoren), $\field{F}$ een veld (scalairen, meestal $\field{R}$ of $\field{C}$).
+Vectoren: $\vec{u}, \vec{v}, \vec{w} \in V$. Scalairen: $\scalar{\lambda, \mu, \alpha_i} \in \field{F}$.
+Nulvector: $\vec{0} \in V$. Eenheidsscalair: $\scalar{1} \in \field{F}$.
+
+% --- Sectie: Definitie Vectorruimte (Axioma's) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Definitie Vectorruimte (Axioma's)}}
+\par
+}%
+$(V, +)$ is een abelse groep:
+\begin{itemize}
+    \item $(\vec{u} + \vec{v}) + \vec{w} = \vec{u} + (\vec{v} + \vec{w})$ (Associativiteit +)
+    \item $\vec{v} + \vec{0} = \vec{v}$ (Nulelement)
+    \item $\forall \vec{v} \in V, \exists (-\vec{v}) \in V: \vec{v} + (-\vec{v}) = \vec{0}$ (Tegengestelde)
+    \item $\vec{u} + \vec{v} = \vec{v} + \vec{u}$ (Commutativiteit +)
+\end{itemize}
+Scalaire vermenigvuldiging ($\field{F} \times V \to V: (\scalar{\lambda}, \vec{v}) \mapsto \scalar{\lambda}\vec{v}$):
+\begin{itemize}
+    \item $\scalar{\lambda}(\vec{u}+\vec{v}) = \scalar{\lambda}\vec{u} + \scalar{\lambda}\vec{v}$ (Distributiviteit 1)
+    \item $(\scalar{\lambda+\mu})\vec{v} = \scalar{\lambda}\vec{v} + \scalar{\mu}\vec{v}$ (Distributiviteit 2)
+    \item $\scalar{\lambda}(\scalar{\mu}\vec{v}) = \scalar{(\lambda\mu)}\vec{v}$ (Associativiteit mult.)
+    \item $\scalar{1}\vec{v} = \vec{v}$ (Eenheidsscalair)
+\end{itemize}
+
+% --- Sectie: Lineaire Combinaties & Span ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Lineaire Combinaties \& Span}}
+\par
+}%
+\textit{Lineaire Combinatie:} ($\vec{v_i} \in V, \scalar{\alpha_i} \in \field{F}$)
+\[
+\sum_{i=1}^{\scalar{k}} \scalar{\alpha_i} \vec{v_i} = \scalar{\alpha_1}\vec{v_1} + \scalar{\alpha_2}\vec{v_2} + \dots + \scalar{\alpha_k}\vec{v_k}
+\]
+\textit{Lineair Opspansel (Span):} ($S \subseteq V$)
+\[
+\text{span}(S) = \left\{ \sum_{i=1}^{\scalar{k}} \scalar{\alpha_i} \vec{v_i} \mid \scalar{k} \in \mathbb{N}, \vec{v_i} \in S, \scalar{\alpha_i} \in \field{F} \right\}
+\]
+($\text{span}(S)$ is de kleinste deelruimte van $V$ die $S$ bevat.)
+\textit{Voortbrengende Verzameling:} $S$ brengt $V$ voort als $\text{span}(S) = V$.
+
+% --- Sectie: Lineaire (On)afhankelijkheid ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Lineaire (On)afhankelijkheid}}
+\par
+}%
+Een eindige verzameling $S = \{\vec{v_1}, \dots, \vec{v_k}\} \subseteq V$ is:
+\textit{Lineair Onafhankelijk:}
+\[
+\sum_{i=1}^{\scalar{k}} \scalar{\alpha_i} \vec{v_i} = \vec{0} \quad \implies \quad \scalar{\alpha_1} = \scalar{\alpha_2} = \dots = \scalar{\alpha_k} = \scalar{0}
+\]
+(De nulvector kan enkel als de triviale lineaire combinatie geschreven worden.)
+
+\textit{Lineair Afhankelijk:}
+\[
+\exists (\scalar{\alpha_1}, \dots, \scalar{\alpha_k}) \neq (\scalar{0}, \dots, \scalar{0}) \text{ zodat } \sum_{i=1}^{\scalar{k}} \scalar{\alpha_i} \vec{v_i} = \vec{0}
+\]
+(Minstens één vector is een lineaire combinatie van de andere.)
+
+% --- Sectie: Basis & Dimensie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Basis & Dimensie}}
+\par
+}%
+\textit{Basis:} Een verzameling $B \subseteq V$ is een basis als:
+\begin{itemize}
+    \item $B$ is lineair onafhankelijk.
+    \item $B$ is een voortbrengende verzameling voor $V$ ($\text{span}(B) = V$).
+\end{itemize}
+\textit{Unieke Voorstelling:} Als $B = \{\vec{e_1}, \dots, \vec{e_n}\}$ een basis is, dan kan elke $\vec{v} \in V$ uniek geschreven worden als:
+\[
+\vec{v} = \sum_{i=1}^{\scalar{n}} \scalar{\alpha_i} \vec{e_i}
+\]
+$(\scalar{\alpha_1}, \dots, \scalar{\alpha_n})$ zijn de coördinaten van $\vec{v}$ t.o.v. $B$.
+
+\textit{Dimensie:} Als $V$ een eindige basis heeft, is het aantal vectoren in elke basis gelijk. Dit aantal is de dimensie van $V$.
+\[
+\scalar{\dim(V)} = \scalar{n} = |B|
+\]
+
+% --- Sectie: Deelruimten ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Deelruimten}}
+\par
+}%
+Een niet-lege deelverzameling $W \subseteq V$ is een deelruimte als $W$ zelf een vectorruimte is over $\field{F}$ met de restricties van de bewerkingen in $V$. Equivalent:
+\begin{itemize}
+    \item $\vec{0} \in W$ (Impliciet als $W$ niet-leeg is en gesloten onder scalaire mult.)
+    \item $\forall \vec{w_1}, \vec{w_2} \in W : \vec{w_1} + \vec{w_2} \in W$ (Gesloten onder +)
+    \item $\forall \vec{w} \in W, \forall \scalar{\lambda} \in \field{F} : \scalar{\lambda}\vec{w} \in W$ (Gesloten onder scalaire mult.)
+\end{itemize}
+Equivalent Criterium:
+\[
+W \subseteq V \text{ is deelruimte} \iff \forall \vec{w_1}, \vec{w_2} \in W, \forall \scalar{\lambda, \mu} \in \field{F} : (\scalar{\lambda}\vec{w_1} + \scalar{\mu}\vec{w_2}) \in W
+\]
+
+% --- Sectie: Som & Directe Som ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Som & Directe Som}} ($V_1, V_2$ deelruimten van $V$)
+\par
+}%
+\textit{Som:} Deelruimte voortgebracht door $V_1 \cup V_2$.
+\[
+V_1 + V_2 = \{ \vec{v_1} + \vec{v_2} \mid \vec{v_1} \in V_1, \vec{v_2} \in V_2 \}
+\]
+\textit{Doorsnede:} $V_1 \cap V_2$ is ook een deelruimte.
+
+\textit{Dimensieformule van Grassmann:}
+\[
+\scalar{\dim(V_1 + V_2)} = \scalar{\dim(V_1)} + \scalar{\dim(V_2)} - \scalar{\dim(V_1 \cap V_2)}
+\]
+\textit{Directe Som:} De som $V_1 + V_2$ is direct als $V_1 \cap V_2 = \{\vec{0}\}$. Notatie: $V_1 \oplus V_2$.
+\[
+V = V_1 \oplus V_2 \iff \forall \vec{v} \in V, \exists! \vec{v_1} \in V_1, \exists! \vec{v_2} \in V_2 \text{ zodat } \vec{v} = \vec{v_1} + \vec{v_2}
+\]
+\[
+V = V_1 \oplus V_2 \implies \scalar{\dim(V)} = \scalar{\dim(V_1)} + \scalar{\dim(V_2)}
+\]
+
+\end{document}

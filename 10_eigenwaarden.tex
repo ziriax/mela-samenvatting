@@ -1,0 +1,133 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (aangepast SoftRed)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230, 70, 70}    % Zacht Rood voor matrices/transformaties
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices en lineaire transformaties (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Operatoren voor Kern, Dim
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Dim}{dim}
+% Identiteits-transformatie/matrix
+\newcommand{\Id}{\mat{\mathrm{Id}}}
+\newcommand{\matI}{\mat{I}} % Identiteitsmatrix specifiek
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Eigenwaarden en Eigenvectoren}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $V$ een vectorruimte over $\field{F}$. $\mat{T}: V \to V$ een lineaire transformatie (endomorfisme), of $\mat{A} \in \field{F}^{n \times n}$ een vierkante matrix.
+$\scalar{\lambda} \in \field{F}$ is een scalair (eigenwaarde). $\vec{x} \in V$ of $\vec{x} \in \field{F}^{n \times 1}$ is een vector (eigenvector).
+
+% --- Sectie: Definitie Eigenwaarde/Eigenvector ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Definitie Eigenwaarde/Eigenvector}}
+\par
+}%
+Een scalair $\scalar{\lambda} \in \field{F}$ is een \textbf{eigenwaarde} van $\mat{T}$ (of $\mat{A}$) als er een \textit{niet-nul} vector $\vec{x} \in V$ (of $\field{F}^{n \times 1}$) bestaat, genaamd \textbf{eigenvector}, zodat:
+\[
+\mat{T}(\vec{x}) = \scalar{\lambda} \vec{x} \quad \text{(voor transformatie } \mat{T})
+\]
+\[
+\mat{A} \vec{x} = \scalar{\lambda} \vec{x} \quad \text{(voor matrix } \mat{A})
+\]
+Equivalent herschreven:
+\[
+(\mat{T} - \scalar{\lambda} \Id_V) (\vec{x}) = \vec{0}
+\]
+\[
+(\mat{A} - \scalar{\lambda} \matI) \vec{x} = \vec{0}
+\]
+($\Id_V$ is de identieke transformatie op $V$, $\matI$ is de $n \times n$ identiteitsmatrix).
+Dit betekent dat $\scalar{\lambda}$ een eigenwaarde is als en slechts als de transformatie $\mat{T} - \scalar{\lambda} \Id_V$ (of de matrix $\mat{A} - \scalar{\lambda} \matI$) een \textit{niet-triviale kern} heeft.
+
+% --- Sectie: Karakteristieke Vergelijking ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Karakteristieke Vergelijking}} (voor matrix $\mat{A} \in \field{F}^{n \times n}$)
+\par
+}%
+De eigenwaarden $\scalar{\lambda}$ zijn de scalairen waarvoor $\mat{A} - \scalar{\lambda} \matI$ singulier is.
+\[
+\mat{\det(A - \lambda I)} = \scalar{0}
+\]
+Dit is de \textbf{karakteristieke vergelijking} van $\mat{A}$.
+$\scalar{k_A(\lambda)} = \mat{\det(A - \lambda I)}$ is het \textbf{karakteristiek polynoom} van $\mat{A}$ (een polynoom van graad $\scalar{n}$ in $\scalar{\lambda}$).
+De eigenwaarden zijn de wortels van het karakteristiek polynoom.
+
+% --- Sectie: Eigenruimte ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Eigenruimte}}
+\par
+}%
+Voor een eigenwaarde $\scalar{\lambda}$ van $\mat{T}$ (of $\mat{A}$) is de \textbf{eigenruimte} $E_\lambda$ de verzameling van alle eigenvectoren horend bij $\scalar{\lambda}$, aangevuld met de nulvector.
+\[
+E_\lambda = \{ \vec{x} \in V \mid \mat{T}(\vec{x}) = \scalar{\lambda} \vec{x} \} = \Ker(\mat{T} - \scalar{\lambda} \Id_V)
+\]
+\[
+E_\lambda = \{ \vec{x} \in \field{F}^n \mid \mat{A} \vec{x} = \scalar{\lambda} \vec{x} \} = \Ker(\mat{A} - \scalar{\lambda} \matI)
+\]
+$E_\lambda$ is een deelruimte van $V$ (of $\field{F}^n$).
+\textit{Meetkundige Multipliciteit:} $\scalar{r_\lambda} = \scalar{\Dim(E_\lambda)}$. Er geldt $\scalar{r_\lambda \ge 1}$.
+\textit{Algebraïsche Multipliciteit:} $\scalar{q_\lambda}$ = multipliciteit van $\scalar{\lambda}$ als wortel van $\scalar{k_A(\lambda)=0}$.
+\[
+\scalar{1 \le r_\lambda \le q_\lambda}
+\]
+
+% --- Sectie: Diagonalisatie ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Diagonalisatie}} ($\mat{A} \in \field{F}^{n \times n}$)
+\par
+}%
+Matrix $\mat{A}$ is \textbf{diagonaliseerbaar} over $\field{F}$ als er een inverteerbare matrix $\mat{P} \in \field{F}^{n \times n}$ bestaat zodat $\mat{P^{-1} A P = D}$, waarbij $\mat{D}$ een diagonaalmatrix is.
+\textit{Equivalent Criterium 1:} $\mat{A}$ is diagonaliseerbaar $\iff$ er bestaat een basis van $\field{F}^n$ bestaande uit eigenvectoren van $\mat{A}$.
+\textit{Equivalent Criterium 2:} $\mat{A}$ is diagonaliseerbaar $\iff$
+\begin{itemize}
+    \item Het karakteristiek polynoom $\scalar{k_A(\lambda)}$ ontbindt volledig in lineaire factoren over $\field{F}$.
+    \item Voor elke eigenwaarde $\scalar{\lambda}$ geldt $\scalar{r_\lambda = q_\lambda}$ (meetkundige mult. = algebraïsche mult.).
+\end{itemize}
+\textit{Constructie:} Als $\mat{A}$ diagonaliseerbaar is, dan zijn de kolommen van $\mat{P}$ de $\scalar{n}$ lineair onafhankelijke eigenvectoren, en $\mat{D}$ is de diagonaalmatrix met de corresponderende eigenwaarden op de diagonaal (in dezelfde volgorde).
+\[
+\mat{A} = \mat{P D P^{-1}}
+\]
+
+% --- Sectie: Symmetrische Matrices (Reëel) ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Symmetrische Matrices (Reëel)}} ($\mat{A} \in \field{R}^{n \times n}, \mat{A^T = A}$)
+\par
+}%
+\begin{itemize}
+    \item Alle eigenwaarden van $\mat{A}$ zijn reëel ($\scalar{\lambda \in \field{R}}$).
+    \item Eigenvectoren horend bij \textit{verschillende} eigenwaarden zijn orthogonaal.
+    \item $\mat{A}$ is altijd \textbf{orthogonaal diagonaliseerbaar}: Er bestaat een \textit{orthogonale} matrix $\mat{P}$ ($\mat{P^T = P^{-1}}$) zodat $\mat{P^T A P = D}$ (diagonaal).
+\end{itemize}
+De kolommen van $\mat{P}$ vormen een orthonormale basis van $\field{R}^n$ bestaande uit eigenvectoren van $\mat{A}$.
+
+\end{document}
