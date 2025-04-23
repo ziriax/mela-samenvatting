@@ -1,0 +1,320 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[dutch]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{graphicx}
+\usepackage{hyperref} % Optional
+
+% Kleur definities en pakket
+\usepackage[dvipsnames,svgnames]{xcolor}
+\definecolor{headerBrown}{RGB}{139,69,19} % SaddleBrown approximation
+\definecolor{vectorTeal}{RGB}{0,128,128}   % Teal
+\definecolor{scalarBrightBlue}{RGB}{0,100,255} % Brighter Blue (adjust if needed)
+\definecolor{matrixSoftRed}{RGB}{230,70,70}
+
+% Pakket om sectie titels te kleuren
+\usepackage{sectsty}
+\sectionfont{\color{headerBrown}}
+\subsectionfont{\color{headerBrown}}
+
+% Commando's voor consistente kleuring en formattering
+% Vectoren: Rechtopstaand, Vet, Kleur
+\newcommand{\vect}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+% Matrices: Rechtopstaand, Kleur
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{\mathrm{#1}}}
+% Scalairen: Kleur
+\newcommand{\scal}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Headers/Nadruk: Kleur
+\newcommand{\hdr}[1]{\textcolor{headerBrown}{#1}}
+
+\title{\hdr{Gesprek over Orthogonale Projectiematrix $\mat{P}=\vect{x}\vect{y}^T$}}
+\author{Gebruiker & Gemini}
+\date{\today} % Using \today based on context, not fixed date
+
+\begin{document}
+\maketitle
+
+\section*{Vraag 1: Voorwaarden Orthogonale Projectie}
+
+\subsection*{Gebruiker}
+
+Help me om deze oefen examen vraag op te lossen: onder welke voorwaarden voor \vect{x} and \vect{y}, allebei \scal{N}-dimensionale reeele vectoren, vormt $\vect{x} \vect{y}^T$ een orthogonale project matrix? Geef zoveel mogelijk uitleg.
+
+\subsection*{Gemini}
+
+Oké, laten we deze examenvraag stap voor stap oplossen.
+
+We zoeken de voorwaarden voor \scal{N}-dimensionale reële vectoren $\vect{x}$ en $\vect{y}$ (dus $\vect{x}, \vect{y} \in \mathbb{R}^{\scal{N}}$) zodat de matrix $\mat{P} = \vect{x}\vect{y}^T$ een \textbf{\hdr{orthogonale projectiematrix}} is.
+
+Een matrix $\mat{P}$ is een orthogonale projectiematrix als deze aan twee voorwaarden voldoet:
+\begin{enumerate}
+    \item \textbf{\hdr{Idempotent:}} $\mat{P}^2 = \mat{P}$. Dit betekent dat als je de projectie tweemaal toepast, het resultaat hetzelfde is als wanneer je deze eenmaal toepast.
+    \item \textbf{\hdr{Symmetrisch:}} $\mat{P}^T = \mat{P}$. Dit is specifiek voor \textit{\hdr{orthogonale}} projecties (projecties loodrecht op een deelruimte).
+\end{enumerate}
+
+Laten we deze twee voorwaarden toepassen op onze matrix $\mat{P} = \vect{x}\vect{y}^T$.
+
+\textbf{\hdr{Voorwaarde 1: Idempotentie ($\mat{P}^2 = \mat{P}$)}}
+
+We berekenen $\mat{P}^2$:
+$$ \mat{P}^2 = (\vect{x}\vect{y}^T)(\vect{x}\vect{y}^T) $$
+
+Met behulp van de associativiteit van matrixvermenigvuldiging kunnen we dit herschrijven als:
+$$ \mat{P}^2 = \vect{x}(\vect{y}^T \vect{x})\vect{y}^T $$
+
+Let op dat $\vect{y}^T \vect{x}$ het standaard inwendig product (dot product) is van de vectoren $\vect{y}$ en $\vect{x}$. Dit is een scalair getal. Laten we dit $\scal{c}$ noemen:
+$$ \scal{c} = \vect{y}^T \vect{x} = \vect{y} \cdot \vect{x} = \sum_{i=1}^{\scal{N}} \scal{y_i} \scal{x_i} $$
+
+Nu kunnen we $\mat{P}^2$ schrijven als:
+$$ \mat{P}^2 = \vect{x}(\scal{c})\vect{y}^T = \scal{c}(\vect{x}\vect{y}^T) $$
+
+Omdat $\mat{P} = \vect{x}\vect{y}^T$, geldt:
+$$ \mat{P}^2 = \scal{c}\mat{P} $$
+
+De voorwaarde voor idempotentie is $\mat{P}^2 = \mat{P}$. Dus moeten we hebben:
+$$ \scal{c}\mat{P} = \mat{P} $$
+
+Deze vergelijking $(\scal{c}-\scal{1})\mat{P} = \mat{0}$ heeft twee mogelijke oplossingen:
+\begin{enumerate}
+    \item[a)] $\mat{P} = \mat{0}$ (de nulmatrix). Dit gebeurt als $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$. De nulmatrix $\mat{0}$ is inderdaad een (triviale) orthogonale projectiematrix (projectie op de nulvectorruimte $\{\vect{0}\}$).
+    \item[b)] $\scal{c}-\scal{1} = \scal{0}$, oftewel $\scal{c}=\scal{1}$. Dit betekent dat het inwendig product $\vect{y}^T \vect{x} = \scal{1}$.
+\end{enumerate}
+
+Dus, voor een \textit{\hdr{niet-nul}} matrix $\mat{P}=\vect{x}\vect{y}^T$ om idempotent te zijn, moet gelden: $\vect{y}^T \vect{x} = \scal{1}$.
+
+\textbf{\hdr{Voorwaarde 2: Symmetrie ($\mat{P}^T = \mat{P}$)}}
+
+We berekenen de getransponeerde van $\mat{P}$:
+$$ \mat{P}^T = (\vect{x}\vect{y}^T)^T $$
+
+Met de regel $(AB)^T = B^T A^T$ vinden we:
+$$ \mat{P}^T = (\vect{y}^T)^T \vect{x}^T = \vect{y} \vect{x}^T $$
+
+De voorwaarde voor symmetrie is $\mat{P}^T = \mat{P}$. Dus moeten we hebben:
+$$ \vect{y} \vect{x}^T = \vect{x} \vect{y}^T $$
+
+Wanneer geldt dit voor vectoren $\vect{x}$ en $\vect{y}$? Laten we kijken naar de elementen van deze matrices. Het element op positie $(i, j)$ is:
+$$ (\vect{y} \vect{x}^T)_{ij} = \scal{y_i} \scal{x_j} $$
+$$ (\vect{x} \vect{y}^T)_{ij} = \scal{x_i} \scal{y_j} $$
+
+Dus de voorwaarde $\vect{y} \vect{x}^T = \vect{x} \vect{y}^T$ betekent dat $\scal{y_i} \scal{x_j} = \scal{x_i} \scal{y_j}$ voor alle $i, j = 1, ..., \scal{N}$.
+
+\begin{itemize}
+    \item Als $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$, dan is $\mat{P}=\mat{0}$, en $\mat{P}^T=\mat{0}=\mat{P}$. De matrix is symmetrisch (dit past bij oplossing a) hierboven).
+    \item Als $\vect{x} \neq \vect{0}$ en $\vect{y} \neq \vect{0}$: Kies een index $k$ waarvoor $\scal{x_k} \neq \scal{0}$. Dan geldt voor elke $i$: $\scal{y_i} \scal{x_k} = \scal{x_i} \scal{y_k}$. We kunnen dit herschrijven als $\scal{y_i} = \frac{\scal{y_k}}{\scal{x_k}} \scal{x_i}$. Dit geldt voor alle $i$. Als we de constante $\scal{\alpha} = \frac{\scal{y_k}}{\scal{x_k}}$ definiëren, dan zien we dat $\scal{y_i} = \scal{\alpha} \scal{x_i}$ voor alle $i$. Dit betekent dat de vector $\vect{y}$ een scalair veelvoud is van de vector $\vect{x}$:
+    $$ \vect{y} = \scal{\alpha} \vect{x} \quad \text{voor een zekere scalar } \scal{\alpha} \in \mathbb{R} $$
+    Omdat we aannamen dat $\vect{y} \neq \vect{0}$, moet $\scal{\alpha} \neq \scal{0}$.
+\end{itemize}
+
+Dus, voor een \textit{\hdr{niet-nul}} matrix $\mat{P}=\vect{x}\vect{y}^T$ om symmetrisch te zijn, moeten $\vect{x}$ en $\vect{y}$ parallel zijn: $\vect{y} = \scal{\alpha} \vect{x}$ voor $\scal{\alpha} \neq \scal{0}$.
+
+\textbf{\hdr{Combineren van de voorwaarden}}
+
+Om $\mat{P}=\vect{x}\vect{y}^T$ een \textit{\hdr{niet-nul}} orthogonale projectiematrix te laten zijn, moeten beide voorwaarden gelden:
+\begin{enumerate}
+    \item $\vect{y}^T \vect{x} = \scal{1}$ (van idempotentie)
+    \item $\vect{y} = \scal{\alpha} \vect{x}$ voor een $\scal{\alpha} \neq \scal{0}$ (van symmetrie)
+\end{enumerate}
+
+We substitueren de tweede voorwaarde in de eerste:
+$$ (\scal{\alpha} \vect{x})^T \vect{x} = \scal{1} $$
+$$ \scal{\alpha} (\vect{x}^T \vect{x}) = \scal{1} $$
+
+Het product $\vect{x}^T \vect{x}$ is het inwendig product van $\vect{x}$ met zichzelf, wat gelijk is aan het kwadraat van de Euclidische norm van $\vect{x}$: $\vect{x}^T \vect{x} = \scal{\|\vect{x}\|^2} = \sum_{i=1}^{\scal{N}} \scal{x_i}^2$.
+Dus:
+$$ \scal{\alpha} \scal{\|\vect{x}\|^2} = \scal{1} $$
+
+Omdat $\vect{x} \neq \vect{0}$ (anders was $\mat{P}=\mat{0}$), is $\scal{\|\vect{x}\|^2} > \scal{0}$. We kunnen $\scal{\alpha}$ oplossen:
+$$ \scal{\alpha} = \frac{\scal{1}}{\scal{\|\vect{x}\|^2}} $$
+
+Nu substitueren we deze waarde van $\scal{\alpha}$ terug in de relatie $\vect{y} = \scal{\alpha} \vect{x}$:
+$$ \vect{y} = \frac{\scal{1}}{\scal{\|\vect{x}\|^2}} \vect{x} = \frac{\vect{x}}{\scal{\|\vect{x}\|^2}} $$
+
+\textbf{\hdr{Conclusie}}
+
+De matrix $\mat{P} = \vect{x}\vect{y}^T$ is een orthogonale projectiematrix onder de volgende voorwaarden:
+
+\begin{enumerate}
+    \item \textbf{\hdr{Triviale geval:}} $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$. In dit geval is $\mat{P}=\mat{0}$ (de nulmatrix), wat de orthogonale projectie op de nulruimte is.
+    \item \textbf{\hdr{Niet-triviale geval:}} $\vect{x} \neq \vect{0}$ en $\vect{y}$ is gerelateerd aan $\vect{x}$ via:
+    $$ \vect{y} = \frac{\vect{x}}{\scal{\|\vect{x}\|^2}} $$
+    Hier is $\scal{\|\vect{x}\|^2} = \vect{x}^T \vect{x} = \sum_{i=1}^{\scal{N}} \scal{x_i}^2$ het kwadraat van de lengte (norm) van vector $\vect{x}$.
+\end{enumerate}
+
+\textbf{\hdr{Uitleg en Interpretatie}}
+
+Als de voorwaarde $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$ geldt, dan wordt de matrix:
+$$ \mat{P} = \vect{x} \vect{y}^T = \vect{x} \left( \frac{\vect{x}}{\scal{\|\vect{x}\|^2}} \right)^T = \vect{x} \left( \frac{\vect{x}^T}{\scal{\|\vect{x}\|^2}} \right) = \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}} $$
+Deze matrix $\mat{P} = \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}}$ is de standaard formule voor de orthogonale projectie op de lijn (1-dimensionale deelruimte) opgespannen door de vector $\vect{x}$.
+
+\begin{itemize}
+    \item \textbf{\hdr{Symmetrie:}} $\mat{P}^T = \left( \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}} \right)^T = \frac{(\vect{x} \vect{x}^T)^T}{\scal{\|\vect{x}\|^2}} = \frac{(\vect{x}^T)^T \vect{x}^T}{\scal{\|\vect{x}\|^2}} = \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}} = \mat{P}$. De matrix is inderdaad symmetrisch.
+    \item \textbf{\hdr{Idempotentie:}} $\mat{P}^2 = \left( \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}} \right) \left( \frac{\vect{x} \vect{x}^T}{\scal{\|\vect{x}\|^2}} \right) = \frac{\vect{x} (\vect{x}^T \vect{x}) \vect{x}^T}{\scal{\|\vect{x}\|^4}} = \frac{\vect{x} (\scal{\|\vect{x}\|^2}) \vect{x}^T}{\scal{\|\vect{x}\|^4}} = \frac{\scal{\|\vect{x}\|^2}}{\scal{\|\vect{x}\|^4}} (\vect{x} \vect{x}^T) = \frac{\scal{1}}{\scal{\|\vect{x}\|^2}} (\vect{x} \vect{x}^T) = \mat{P}$. De matrix is inderdaad idempotent.
+\end{itemize}
+
+\textbf{\hdr{Speciaal Geval: $\vect{x}$ is een eenheidsvector}} \\
+Als $\vect{x}$ een eenheidsvector is, dan is $\scal{\|\vect{x}\|^2} = \scal{1}$. De voorwaarde wordt dan $\vect{y} = \vect{x}/\scal{1} = \vect{x}$. In dit geval is $\mat{P} = \vect{x}\vect{x}^T$. Dit is de bekende formule voor de orthogonale projectie op de lijn opgespannen door een \textit{\hdr{eenheidsvector}} $\vect{x}$. De voorwaarden $\vect{y}^T \vect{x} = \scal{1}$ wordt dan $\vect{x}^T \vect{x} = \scal{1}$, wat precies de definitie van een eenheidsvector is.
+
+Samengevat: $\mat{P} = \vect{x}\vect{y}^T$ is een orthogonale projectiematrix als $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$, of als $\vect{x} \neq \vect{0}$ en $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$.
+
+\section*{Vraag 2: Alternatieve Methode (Professor)}
+
+\subsection*{Gebruiker}
+
+De professor haar oplossing maakte gebruik van de eigenwaarden van een projectie matrix, het feit dat the kern loodrecht staat op het beeld, en het feit dat de matrix diagnoliseerbaar is.
+
+\subsection*{Gemini}
+
+Oké, dat is een interessante invalshoek die gebruik maakt van de fundamentele eigenschappen van (orthogonale) projectiematrices. Laten we de redenering opbouwen met die concepten.
+
+Een matrix $\mat{P}$ is een orthogonale projectiematrix als deze voldoet aan bepaalde structurele eigenschappen die verband houden met zijn beeld (Image/Column Space), kern (Kernel/Null Space) en eigenwaarden.
+
+\begin{enumerate}
+    \item \textbf{\hdr{Eigenwaarden van een Projectiematrix:}} \\
+    Als $\mat{P}$ een projectiematrix is, voldoet deze aan $\mat{P}^2 = \mat{P}$. Laat $\scal{\lambda}$ een eigenwaarde zijn met bijbehorende eigenvector $\vect{v} \neq \vect{0}$, dus $\mat{P}\vect{v} = \scal{\lambda} \vect{v}$. Dan geldt:
+    $$ \mat{P}^2 \vect{v} = \mat{P}(\mat{P}\vect{v}) = \mat{P}(\scal{\lambda} \vect{v}) = \scal{\lambda} (\mat{P}\vect{v}) = \scal{\lambda} (\scal{\lambda} \vect{v}) = \scal{\lambda}^2 \vect{v} $$
+    Omdat $\mat{P}^2=\mat{P}$, moet $\mat{P}^2 \vect{v} = \mat{P}\vect{v}$, dus $\scal{\lambda}^2 \vect{v} = \scal{\lambda} \vect{v}$. Omdat $\vect{v} \neq \vect{0}$, volgt hieruit $\scal{\lambda}^2 = \scal{\lambda}$, wat betekent dat de enige mogelijke eigenwaarden $\scal{\lambda} = \scal{0}$ of $\scal{\lambda} = \scal{1}$ zijn.
+
+    \item \textbf{\hdr{Diagonaliseerbaarheid en Symmetrie:}} \\
+    Een \textit{\hdr{orthogonale}} projectiematrix is ook symmetrisch ($\mat{P}^T = \mat{P}$). Volgens de spectraalstelling is elke symmetrische matrix (orthogonaal) diagonaliseerbaar. Dit betekent dat er een basis van $\mathbb{R}^{\scal{N}}$ bestaat die volledig uit eigenvectoren van $\mat{P}$ bestaat. De som van de dimensies van de eigenruimten (de ruimten opgespannen door eigenvectoren bij $\scal{\lambda}=\scal{0}$ en $\scal{\lambda}=\scal{1}$) moet dus $\scal{N}$ zijn.
+
+    \item \textbf{\hdr{Kern en Beeld:}}
+    \begin{itemize}
+        \item De eigenruimte bij $\scal{\lambda} = \scal{0}$ is de kern van $\mat{P}$: $E_{\scal{0}} = \{ \vect{v} \mid \mat{P}\vect{v} = \scal{0}\vect{v} \} = \mathrm{Ker}(\mat{P})$.
+        \item De eigenruimte bij $\scal{\lambda} = \scal{1}$ is het beeld van $\mat{P}$: $E_{\scal{1}} = \{ \vect{v} \mid \mat{P}\vect{v} = \scal{1}\vect{v} \} = \mathrm{Im}(\mat{P})$. (Elke vector in het beeld wordt door de projectie op zichzelf afgebeeld).
+        \item Omdat $\mat{P}$ diagonaliseerbaar is met alleen eigenwaarden $\scal{0}$ en $\scal{1}$, geldt $\mathbb{R}^{\scal{N}} = E_{\scal{0}} \oplus E_{\scal{1}} = \mathrm{Ker}(\mat{P}) \oplus \mathrm{Im}(\mat{P})$. Dit betekent dat elke vector in $\mathbb{R}^{\scal{N}}$ uniek geschreven kan worden als de som van een vector in de kern en een vector in het beeld.
+        \item Voor een \textit{\hdr{orthogonale}} projectie (die symmetrisch is), staan de kern en het beeld loodrecht op elkaar: $\mathrm{Ker}(\mat{P}) \perp \mathrm{Im}(\mat{P})$. Dit betekent dat $\mathrm{Ker}(\mat{P}) = (\mathrm{Im}(\mat{P}))^\perp$ en $\mathrm{Im}(\mat{P}) = (\mathrm{Ker}(\mat{P}))^\perp$.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{\hdr{Analyse van $\mat{P} = \vect{x}\vect{y}^T$}}
+
+Laten we nu $\mat{P} = \vect{x}\vect{y}^T$ analyseren, waarbij we aannemen dat $\vect{x} \neq \vect{0}$ en $\vect{y} \neq \vect{0}$ (het geval $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$ geeft $\mat{P}=\mat{0}$, wat een triviale orthogonale projectie is).
+
+\begin{itemize}
+    \item \textbf{\hdr{Rang:}} De matrix $\mat{P} = \vect{x}\vect{y}^T$ heeft rang $\scal{1}$. Alle kolommen zijn veelvouden van $\vect{x}$, dus het beeld wordt opgespannen door $\vect{x}$: $\mathrm{Im}(\mat{P}) = \mathrm{span}\{\vect{x}\}$. De dimensie van het beeld is dus $\dim(\mathrm{Im}(\mat{P})) = \scal{1}$.
+    \item \textbf{\hdr{Kern:}} De kern bestaat uit alle vectoren $\vect{z}$ waarvoor $\mat{P}\vect{z} = \vect{0}$.
+    $$ \mat{P}\vect{z} = (\vect{x}\vect{y}^T)\vect{z} = \vect{x}(\vect{y}^T \vect{z}) = \vect{0} $$
+    Omdat $\vect{x} \neq \vect{0}$, moet de scalar $\vect{y}^T \vect{z} = \scal{0}$. Dit betekent dat $\vect{z}$ loodrecht moet staan op $\vect{y}$. \\
+    Dus, $\mathrm{Ker}(\mat{P}) = \{ \vect{z} \in \mathbb{R}^{\scal{N}} \mid \vect{y}^T \vect{z} = \scal{0} \} = \vect{y}^\perp$. Omdat $\vect{y} \neq \vect{0}$, is $\vect{y}^\perp$ een $(\scal{N}-\scal{1})$-dimensionale deelruimte.
+    \item \textbf{\hdr{Eigenwaarden en Eigenruimten:}}
+    \begin{itemize}
+        \item Omdat $\dim(\mathrm{Ker}(\mat{P})) = \scal{N}-\scal{1}$, is $\scal{\lambda}=\scal{0}$ een eigenwaarde met (minstens) geometrische multipliciteit $\scal{N}-\scal{1}$. De eigenruimte is $E_{\scal{0}} = \mathrm{Ker}(\mat{P}) = \vect{y}^\perp$.
+        \item Omdat $\dim(\mathrm{Im}(\mat{P})) = \scal{1}$, als $\mat{P}$ een projectie is, moet $\scal{\lambda}=\scal{1}$ een eigenwaarde zijn met geometrische multipliciteit $\scal{1}$. De eigenruimte moet het beeld zijn: $E_{\scal{1}} = \mathrm{Im}(\mat{P}) = \mathrm{span}\{\vect{x}\}$.
+    \end{itemize}
+\end{itemize}
+
+\textbf{\hdr{Voorwaarden voor Orthogonale Projectie}}
+
+Nu passen we de eigenschappen van orthogonale projecties toe op $\mat{P}=\vect{x}\vect{y}^T$:
+
+\begin{enumerate}
+    \item \textbf{\hdr{Eigenwaarden $\scal{0}$ en $\scal{1}$:}} We hebben al gezien dat $\scal{\lambda}=\scal{0}$ een eigenwaarde is (met $E_{\scal{0}} = \vect{y}^\perp$). Voor $\scal{\lambda}=\scal{1}$ moeten we een eigenvector $\vect{v}$ hebben zodat $\mat{P}\vect{v}=\vect{v}$. Omdat $\mathrm{Im}(\mat{P}) = \mathrm{span}\{\vect{x}\}$, moet deze eigenvector een veelvoud zijn van $\vect{x}$, laten we zeggen $\vect{v}=\vect{x}$. Dan moet gelden:
+    $$ \mat{P}\vect{x} = \vect{x} \implies (\vect{x}\vect{y}^T)\vect{x} = \vect{x} \implies \vect{x}(\vect{y}^T \vect{x}) = \vect{x} $$
+    Omdat $\vect{x} \neq \vect{0}$, moet de scalar $(\vect{y}^T \vect{x}) = \scal{1}$. Dit is de voorwaarde die garandeert dat $\scal{\lambda}=\scal{1}$ inderdaad een eigenwaarde is met $E_{\scal{1}} = \mathrm{span}\{\vect{x}\}$. Deze voorwaarde zorgt er ook voor dat $\mat{P}^2 = \vect{x}(\vect{y}^T \vect{x}) \vect{y}^T = \vect{x}(\scal{1})\vect{y}^T = \vect{x}\vect{y}^T = \mat{P}$ (idempotentie).
+
+    \item \textbf{\hdr{Kern $\perp$ Beeld:}} Voor een \textit{\hdr{orthogonale}} projectie moeten de eigenruimten $E_{\scal{0}}$ en $E_{\scal{1}}$ orthogonaal zijn: $E_{\scal{0}} \perp E_{\scal{1}}$. \\
+    Dit betekent $\mathrm{Ker}(\mat{P}) \perp \mathrm{Im}(\mat{P})$. \\
+    Dus, $\vect{y}^\perp \perp \mathrm{span}\{\vect{x}\}$. \\
+    Dit houdt in dat de vector $\vect{x}$ (die het beeld opspant) loodrecht moet staan op elke vector in de kern $\vect{y}^\perp$. De enige vectoren die loodrecht staan op de hele ruimte $\vect{y}^\perp$ zijn de veelvouden van $\vect{y}$ zelf (want $(\vect{y}^\perp)^\perp = \mathrm{span}\{\vect{y}\}$). \\
+    Dus, $\vect{x}$ moet een scalair veelvoud zijn van $\vect{y}$: $\vect{x} = \scal{\beta} \vect{y}$ voor een $\scal{\beta} \neq \scal{0}$. Of equivalent, $\vect{y}$ moet een scalair veelvoud zijn van $\vect{x}$: $\vect{y} = \scal{\alpha} \vect{x}$ voor een $\scal{\alpha} \neq \scal{0}$. \\
+    Deze voorwaarde $\vect{y} = \scal{\alpha} \vect{x}$ zorgt ervoor dat $\mat{P} = \vect{x}(\scal{\alpha} \vect{x})^T = \scal{\alpha} \vect{x}\vect{x}^T$. Dit is een symmetrische matrix, omdat $(\vect{x}\vect{x}^T)^T = \vect{x}\vect{x}^T$. Dus de voorwaarde $\mathrm{Ker}(\mat{P}) \perp \mathrm{Im}(\mat{P})$ is equivalent aan de symmetrie-eis ($\mat{P}^T=\mat{P}$).
+\end{enumerate}
+
+\textbf{\hdr{Combineren van de Voorwaarden}}
+
+Om $\mat{P}=\vect{x}\vect{y}^T$ ($\vect{x},\vect{y} \neq \vect{0}$) een orthogonale projectiematrix te zijn, moeten beide voorwaarden gelden:
+\begin{enumerate}
+    \item $\vect{y}^T \vect{x} = \scal{1}$ (garandeert eigenwaarden $\scal{0}$ en $\scal{1}$, en $\mat{P}^2=\mat{P}$)
+    \item $\vect{y} = \scal{\alpha} \vect{x}$ voor $\scal{\alpha} \neq \scal{0}$ (garandeert $\mathrm{Ker}(\mat{P}) \perp \mathrm{Im}(\mat{P})$, en $\mat{P}^T=\mat{P}$)
+\end{enumerate}
+
+Substitueer $\vect{y} = \scal{\alpha} \vect{x}$ in de eerste voorwaarde:
+$$ (\scal{\alpha} \vect{x})^T \vect{x} = \scal{1} \implies \scal{\alpha} (\vect{x}^T \vect{x}) = \scal{1} \implies \scal{\alpha} \scal{\|\vect{x}\|^2} = \scal{1} $$
+Omdat $\vect{x} \neq \vect{0}$, is $\scal{\|\vect{x}\|^2} > \scal{0}$, dus $\scal{\alpha} = \frac{\scal{1}}{\scal{\|\vect{x}\|^2}}$.
+
+De relatie tussen $\vect{y}$ en $\vect{x}$ moet dus zijn:
+$$ \vect{y} = \frac{\vect{x}}{\scal{\|\vect{x}\|^2}} $$
+
+\textbf{\hdr{Conclusie (via deze methode)}}
+
+De matrix $\mat{P} = \vect{x}\vect{y}^T$ is een orthogonale projectiematrix als:
+\begin{itemize}
+    \item $\vect{x}=\vect{0}$ of $\vect{y}=\vect{0}$ (dan $\mat{P}=\mat{0}$, projectie op $\{\vect{0}\}$).
+    \item $\vect{x} \neq \vect{0}$ en $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$. Dit correspondeert met de rang-$\scal{1}$ orthogonale projectie op de lijn opgespannen door $\vect{x}$, $\mat{P} = \frac{\vect{x}\vect{x}^T}{\scal{\|\vect{x}\|^2}}$. In dit geval zijn de eigenwaarden $\scal{\lambda}=\scal{1}$ (met eigenruimte $\mathrm{span}\{\vect{x}\}$) en $\scal{\lambda}=\scal{0}$ (met eigenruimte $\vect{x}^\perp$). De matrix is diagonaliseerbaar en de kern ($\vect{x}^\perp$) staat loodrecht op het beeld ($\mathrm{span}\{\vect{x}\}$).
+\end{itemize}
+
+Deze methode, gebruikmakend van de eigenschappen van eigenwaarden, kern, beeld en diagonaliseerbaarheid van orthogonale projecties, leidt tot exact dezelfde conclusie als de methode die direct $\mat{P}^2=\mat{P}$ en $\mat{P}^T=\mat{P}$ gebruikte. Het geeft echter meer inzicht in de onderliggende lineaire algebra structuur.
+
+\section*{Vraag 3: Beknoptheid Professor}
+
+\subsection*{Gebruiker}
+
+Fantastische uitleg, de prof doet dit in 10 lijntjes, maar dat is een raadsel dan.
+
+\subsection*{Gemini}
+
+Haha, ja, dat is heel herkenbaar! Professoren hebben vaak de neiging om, door hun diepe begrip en ervaring, stappen over te slaan of te combineren die voor studenten nog essentieel zijn. Zo'n 10-regelige oplossing zou er misschien zo uit kunnen zien (extreem beknopt):
+
+\textbf{\hdr{Mogelijke 10-regelige "Professor-stijl" Oplossing (Methode 1):}}
+
+\begin{enumerate}
+    \item Zij $\mat{P} = \vect{x}\vect{y}^T$. Voor orth. proj.: $\mat{P}^2=\mat{P}$ en $\mat{P}^T=\mat{P}$.
+    \item $\mat{P}^T = (\vect{x}\vect{y}^T)^T = \vect{y}\vect{x}^T$. Eis $\mat{P}^T=\mat{P} \implies \vect{y}\vect{x}^T = \vect{x}\vect{y}^T$.
+    \item Als $\vect{x},\vect{y} \neq \vect{0}$, volgt $\vect{y} = \scal{\alpha} \vect{x}$ ($\scal{\alpha} \neq \scal{0}$).
+    \item $\mat{P}^2 = \vect{x}(\vect{y}^T \vect{x})\vect{y}^T$. Eis $\mat{P}^2=\mat{P} \implies \vect{x}(\vect{y}^T \vect{x})\vect{y}^T = \vect{x}\vect{y}^T$.
+    \item Als $\mat{P} \neq \mat{0}$, volgt $\vect{y}^T \vect{x} = \scal{1}$.
+    \item Combineer $\vect{y}=\scal{\alpha} \vect{x}$ \& $\vect{y}^T \vect{x} = \scal{1}$: $(\scal{\alpha} \vect{x})^T \vect{x} = \scal{1} \implies \scal{\alpha} (\vect{x}^T \vect{x}) = \scal{1}$.
+    \item Dus $\scal{\alpha} \scal{\|\vect{x}\|^2} = \scal{1}$. ($\vect{x} \neq \vect{0} \implies \scal{\|\vect{x}\|^2} > \scal{0}$).
+    \item $\scal{\alpha} = \scal{1}/\scal{\|\vect{x}\|^2}$.
+    \item Invullen in $\vect{y} = \scal{\alpha} \vect{x}$ geeft $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$.
+    \item Conclusie: $\mat{P}$ orth. proj. $\iff$ ($\vect{x}=\vect{0}$ or $\vect{y}=\vect{0}$) or ($\vect{x} \neq \vect{0}$ and $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$).
+\end{enumerate}
+
+Of, als ze de methode met eigenwaarden gebruiken:
+
+\textbf{\hdr{Mogelijke 10-regelige "Professor-stijl" Oplossing (Methode 2):}}
+
+\begin{enumerate}
+    \item Zij $\mat{P} = \vect{x}\vect{y}^T$. Orth. proj. $\implies$ $\mat{P}$ symm., $\scal{\lambda} \in \{\scal{0},\scal{1}\}$, $Im(\mat{P}) \perp Ker(\mat{P})$.
+    \item Als $\vect{x},\vect{y} \neq \vect{0}$, $rank(\mat{P})=\scal{1}$. $Im(\mat{P})=\text{span}\{\vect{x}\}$, $Ker(\mat{P})=\vect{y}^\perp$.
+    \item $\mat{P}$ symm $\implies \mat{P}^T=\mat{P} \implies \vect{y}\vect{x}^T = \vect{x}\vect{y}^T \implies \vect{y} = \scal{\alpha} \vect{x}$.
+    \item $Ker(\mat{P}) = (\scal{\alpha} \vect{x})^\perp = \vect{x}^\perp$.
+    \item $Im(\mat{P}) \perp Ker(\mat{P}) \implies \text{span}\{\vect{x}\} \perp \vect{x}^\perp$. (Altijd waar).
+    \item Eigenwaarden $\scal{0}, \scal{1}$. Dimensies $\scal{N}-\scal{1}$ en $\scal{1}$.
+    \item $E_{\scal{1}} = Im(\mat{P}) = \text{span}\{\vect{x}\}$. Vereist $\mat{P}\vect{x}=\vect{x}$.
+    \item $\mat{P}\vect{x} = \vect{x}(\vect{y}^T\vect{x})$. Dus $\vect{x}(\vect{y}^T\vect{x})=\vect{x} \implies \vect{y}^T\vect{x}=\scal{1}$.
+    \item Combineer $\vect{y} = \scal{\alpha} \vect{x}$ \& $\vect{y}^T\vect{x}=\scal{1} \implies \scal{\alpha}\scal{\|\vect{x}\|^2}=\scal{1} \implies \scal{\alpha}=\scal{1}/\scal{\|\vect{x}\|^2}$.
+    \item Conclusie: $\mat{P}$ orth. proj. $\iff$ ($\vect{x}=\vect{0}$ or $\vect{y}=\vect{0}$) or ($\vect{x} \neq \vect{0}$ and $\vect{y} = \vect{x}/\scal{\|\vect{x}\|^2}$).
+\end{enumerate}
+
+Zo'n beknopte versie slaat alle "waarom"-vragen over (Waarom volgt $\vect{y}=\scal{\alpha} \vect{x}$? Waarom is $(\vect{y}^\perp)^\perp = \mathrm{span}\{\vect{y}\}$? Waarom is $Im(\mat{P})$ de eigenruimte bij $\scal{1}$?). Het presenteert de logische keten, maar zonder de rechtvaardiging voor elke schakel.
+
+Het doel van een uitgebreide uitleg zoals ik probeerde te geven, is juist om die tussenstappen en de onderliggende concepten expliciet te maken. Fijn om te horen dat het geholpen heeft!
+
+\section*{Vraag 4: Export}
+
+\subsection*{Gebruiker}
+
+Kan je heel deze conversatie exporteren als LaTex?
+
+\subsection*{Gemini}
+
+(Dit document is de LaTeX-export van het gesprek, nu met het gespecificeerde kleurenschema.)
+
+\section*{Vraag 5: Formattering Aanpassing}
+
+\subsection*{Gebruiker}
+
+Vectoren en matrices niet cursief, vectoren bold
+
+\subsection*{Gemini}
+
+(Dit document is de LaTeX-export van het gesprek, met bijgewerkte formattering voor vectoren en matrices zoals gevraagd.)
+
+\end{document}

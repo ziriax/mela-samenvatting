@@ -1,0 +1,123 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}       % Voor kleuren
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+% Definieer kleuren (aangepast SoftRed)
+\definecolor{headerBrown}{RGB}{139,69,19}     % Bruin voor headers
+\definecolor{vectorTeal}{RGB}{70, 160, 160}     % Zacht blauwgroen voor vectoren
+\definecolor{scalarBrightBlue}{RGB}{0, 0, 255}   % Helder blauw voor scalairen
+\definecolor{matrixSoftRed}{RGB}{230, 70, 70}    % Zacht Rood voor matrices/operatoren
+
+% Commando voor vectoren (Teal)
+\renewcommand{\vec}[1]{\textcolor{vectorTeal}{\mathbf{#1}}}
+
+% Helper commando voor scalaire output (BrightBlue)
+\newcommand{\scalar}[1]{\textcolor{scalarBrightBlue}{#1}}
+% Helper commando voor matrices/operatoren (SoftRed)
+\newcommand{\mat}[1]{\textcolor{matrixSoftRed}{#1}}
+
+% Identiteitsmatrix
+\newcommand{\matI}{\mat{I}}
+% Kolomruimte en Kern
+\DeclareMathOperator{\Col}{Col}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Dim}{dim}
+
+\pagestyle{empty} % Verwijder paginanummering
+
+\begin{document}
+
+\begin{center}
+\Large \textbf{Formularium Orthogonale Projectiematrices}
+\end{center}
+
+\vspace{1em} % Extra verticale ruimte
+
+% Definities voor symbolen
+Zij $W$ een deelruimte van $\mathbb{R}^m$ (met standaard inproduct/dot product). De \textbf{orthogonale projectie} van $\vec{b} \in \mathbb{R}^m$ op $W$ is de unieke vector $\vec{p} \in W$ zodat $\vec{b} - \vec{p} \perp W$. De \textbf{orthogonale projectiematrix} $\mat{P}$ op $W$ is de $m \times m$ matrix waarvoor geldt $\vec{p} = \mat{P}\vec{b}$.
+
+% --- Sectie: Definitie & Betekenis ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Definitie & Betekenis}}
+\par
+}%
+De projectie $\vec{p}$ is de "beste benadering" van $\vec{b}$ binnen de deelruimte $W$. De vector $\vec{b} - \vec{p}$ staat loodrecht op \textit{elke} vector in $W$.
+
+\textit{Waarom $\vec{p} = \mat{A}\vec{x}_{\text{ls}}$?}\\
+Als $\{\vec{a_1}, \dots, \vec{a_n}\}$ een basis is voor $W$ (kolommen van matrix $\mat{A}$), dan moet de projectie $\vec{p}$ een lineaire combinatie zijn van deze basisvectoren: $\vec{p} = \scalar{x_1}\vec{a_1} + \dots + \scalar{x_n}\vec{a_n} = \mat{A}\vec{x}$ voor zekere coëfficiënten $\vec{x}$.
+De eis dat $\vec{b} - \vec{p}$ loodrecht staat op $W$ betekent dat $\vec{b} - \mat{A}\vec{x}$ loodrecht staat op elke $\vec{a_j}$:
+\[ \vec{a_j}^T (\vec{b} - \mat{A}\vec{x}) = \scalar{0} \quad \text{voor } j = 1, \dots, n \]
+Dit kan in matrixvorm geschreven worden als:
+\[ \mat{A}^T (\vec{b} - \mat{A}\vec{x}) = \vec{0} \quad \implies \quad \mat{A^T A} \vec{x} = \mat{A^T} \vec{b} \]
+Dit zijn de \textit{normale vergelijkingen}. De unieke oplossing $\vec{x}_{\text{ls}}$ (als $\mat{A}$ lin. onafh. kolommen heeft) geeft de coëfficiënten die nodig zijn om de projectie $\vec{p} = \mat{A}\vec{x}_{\text{ls}}$ te vormen.
+
+% --- Sectie: Constructie via (Willekeurige) Basis van W ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Constructie via (Willekeurige) Basis van W}}
+\par
+}%
+Zij $\mat{A}$ een $m \times n$ matrix waarvan de kolommen een basis vormen voor $W$ (dus $\text{rank}(\mat{A}) = n$). De projectiematrix is:
+\[
+\mat{P} = \mat{A (\mat{A^T A})^{-1} A^T} \quad (m \times m \text{ matrix})
+\]
+De projectie van $\vec{b}$ op $W = \Col(\mat{A})$ is $\vec{p} = \mat{P}\vec{b}$.
+
+% --- Sectie: Constructie via Orthonormale Basis van W ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Constructie via Orthonormale Basis van W}}
+\par
+}%
+Zij $\{\vec{q_1}, \dots, \vec{q_n}\}$ een \textit{orthonormale} basis (ONB) voor $W$. Vorm de $m \times n$ matrix $\mat{Q}$ met deze vectoren als kolommen ($\mat{Q^T Q = I_n}$). De projectiematrix is:
+\[
+\mat{P} = \mat{Q Q^T} \quad (m \times m \text{ matrix})
+\]
+De projectie van $\vec{b}$ op $W = \Col(\mat{Q})$ is $\vec{p} = \mat{P}\vec{b} = \mat{Q Q^T} \vec{b} = \sum_{i=1}^{\scalar{n}} \scalar{(\vec{b} \cdot \vec{q_i})} \vec{q_i}$.
+
+% --- Sectie: Eigenschappen van Projectiematrix P ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Eigenschappen van Projectiematrix} $\mat{P}$}
+\par
+}%
+Zij $\mat{P}$ de orthogonale projectiematrix op de deelruimte $W$.
+\begin{itemize}
+    \item \textbf{Idempotent:} $\mat{P^2 = P}$
+    \item \textbf{Symmetrisch:} $\mat{P^T = P}$
+    \item \textbf{Beeld:} $\Col(\mat{P}) = W$
+    \item \textbf{Kern:} $\Ker(\mat{P}) = W^{\perp}$
+    \item \textbf{Effect op vectoren:} $\vec{w} \in W \implies \mat{P}\vec{w} = \vec{w}$; \quad $\vec{v} \in W^{\perp} \implies \mat{P}\vec{v} = \vec{0}$
+    \item \textbf{Complementaire Projectie:} $\mat{I - P}$ is de projectiematrix op $W^{\perp}$.
+\end{itemize}
+
+% --- Sectie: Eigenwaarden en Multipliciteiten ---
+\vspace{1.5em} % Marge boven header
+{\centering
+\textcolor{headerBrown}{\large\textbf{Eigenwaarden en Multipliciteiten}}
+\par
+}%
+De enige mogelijke eigenwaarden van een projectiematrix $\mat{P}$ zijn $\scalar{1}$ en $\scalar{0}$.
+\begin{itemize}
+    \item \textbf{Eigenwaarde $\scalar{\lambda = 1}$:}
+        \begin{itemize}
+            \item Eigenruimte $E_1 = \{ \vec{x} \mid \mat{P}\vec{x} = \scalar{1}\vec{x} \} = W$.
+            \item Meetkundige multipliciteit: $\scalar{\dim(E_1) = \dim(W)}$.
+            \item Algebraïsche multipliciteit: Gelijk aan de meetkundige multipliciteit, dus $\scalar{\dim(W)}$. Dit is de rang van $\mat{P}$.
+        \end{itemize}
+    \item \textbf{Eigenwaarde $\scalar{\lambda = 0}$:}
+        \begin{itemize}
+            \item Eigenruimte $E_0 = \{ \vec{x} \mid \mat{P}\vec{x} = \scalar{0}\vec{x} \} = \Ker(\mat{P}) = W^{\perp}$.
+            \item Meetkundige multipliciteit: $\scalar{\dim(E_0) = \dim(W^{\perp})}$.
+            \item Algebraïsche multipliciteit: Gelijk aan de meetkundige multipliciteit, dus $\scalar{\dim(W^{\perp}) = m - \dim(W)}$. (Waarbij $\mat{P}$ een $m \times m$ matrix is).
+        \end{itemize}
+\end{itemize}
+Aangezien $\scalar{\dim(W) + \dim(W^{\perp}) = m}$ (de dimensie van de totale ruimte $\mathbb{R}^m$), is de som van de algebraïsche multipliciteiten gelijk aan $m$, zoals verwacht voor een $m \times m$ matrix. Een projectiematrix is dus altijd diagonaliseerbaar.
+
+\end{document}
